@@ -1,0 +1,3283 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aetheris Chronicles — Thánh Điện Đọc Truyện & Sáng Tác Kỳ Ảo</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            playfair: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            serifRead: ['Lora', 'serif'],
+          },
+          colors: {
+            abyss: '#090A14',
+            obsidian: '#111426',
+            sanctum: '#181C36',
+            gold: {
+              300: '#FDE08D',
+              400: '#F5C451',
+              500: '#DF9F28',
+              600: '#B87B14',
+            },
+            arcane: {
+              400: '#C084FC',
+              500: '#9333EA',
+              600: '#6B21A8',
+            },
+            aether: {
+              400: '#38BDF8',
+              500: '#0284C7',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --bg-primary: #090A14;
+      --gold-glow: rgba(245, 196, 81, 0.35);
+      --arcane-glow: rgba(192, 132, 252, 0.3);
+    }
+    body {
+      background-color: #090A14;
+      color: #E2E8F0;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-fantasy {
+      font-family: 'Cinzel', 'Playfair Display', serif;
+    }
+    .glass-card {
+      background: linear-gradient(145deg, rgba(24, 28, 54, 0.85), rgba(15, 18, 36, 0.92));
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(245, 196, 81, 0.18);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+    }
+    .glass-card:hover {
+      border-color: rgba(245, 196, 81, 0.45);
+      box-shadow: 0 12px 35px -8px rgba(245, 196, 81, 0.15), 0 0 20px -5px rgba(192, 132, 252, 0.15);
+    }
+    .rune-border {
+      position: relative;
+      border: 1px solid rgba(245, 196, 81, 0.3);
+    }
+    .rune-border::before {
+      content: '✦';
+      position: absolute;
+      top: -9px;
+      left: 14px;
+      background: #090A14;
+      padding: 0 6px;
+      color: #F5C451;
+      font-size: 11px;
+      line-height: 1;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF3C4 0%, #F5C451 50%, #D98A16 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #F5C451 0%, #D48817 100%);
+      color: #090A14;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(245, 196, 81, 0.3);
+      transition: all 0.2s ease;
+    }
+    .btn-gold:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(245, 196, 81, 0.5);
+      filter: brightness(1.06);
+    }
+    .btn-arcane {
+      background: linear-gradient(135deg, #7E22CE 0%, #4F46E5 100%);
+      color: #FFFFFF;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(126, 34, 206, 0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-arcane:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(126, 34, 206, 0.55);
+      filter: brightness(1.08);
+    }
+    /* Reader Themes */
+    .reader-theme-night {
+      background-color: #0D1021;
+      color: #E2E8F0;
+      border-color: rgba(245, 196, 81, 0.2);
+    }
+    .reader-theme-parchment {
+      background-color: #F4ECD8;
+      color: #2C221E;
+      border-color: #D3C29E;
+    }
+    .reader-theme-jade {
+      background-color: #0E231F;
+      color: #D1FAE5;
+      border-color: rgba(52, 211, 153, 0.25);
+    }
+    .reader-theme-snow {
+      background-color: #F8FAFC;
+      color: #1E293B;
+      border-color: #CBD5E1;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090A14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #282E54;
+      border-radius: 4px;
+      border: 1px solid rgba(245, 196, 81, 0.2);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #F5C451;
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-float {
+      animation: floatSlow 4s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 12px rgba(245, 196, 81, 0.25); }
+      50% { box-shadow: 0 0 24px rgba(245, 196, 81, 0.6); }
+    }
+    .pulse-gold {
+      animation: pulseGlow 2.8s infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative selection:bg-gold-400 selection:text-abyss">
+
+  <!-- Animated Starfield & Rune Particle Background -->
+  <canvas id="starfieldCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-70"></canvas>
+
+  <!-- Ambient Top Decorative Glow -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[280px] bg-gradient-to-b from-arcane-600/20 via-aether-500/10 to-transparent blur-3xl pointer-events-none z-0"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-abyss/90 backdrop-blur-xl border-b border-gold-400/20">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2 flex-wrap">
+      <!-- Brand Logo -->
+      <button type="button" onclick="switchTab('home')" class="flex items-center gap-3 text-left group focus:outline-none">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 via-amber-600 to-arcane-600 p-0.5 shadow-lg shadow-gold-400/20 group-hover:scale-105 transition">
+          <div class="w-full h-full bg-abyss rounded-[10px] flex items-center justify-center">
+            <svg class="w-6 h-6 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-fantasy font-bold text-lg sm:text-xl tracking-wider gold-gradient-text">AETHERIS</span>
+            <span class="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded bg-gold-400/15 text-gold-300 border border-gold-400/30 font-semibold">Fantasy Realm</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Thánh Điện Tiểu Thuyết & Truyện Tranh Kỳ Ảo</p>
+        </div>
+      </button>
+
+      <!-- Main Navigation Pills -->
+      <nav class="flex items-center gap-1 sm:gap-1.5 bg-obsidian/90 p-1 rounded-xl border border-slate-800 overflow-x-auto max-w-full">
+        <button type="button" id="nav-home" onclick="switchTab('home')" class="nav-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition flex items-center gap-1.5 bg-gold-400 text-abyss font-semibold">
+          <span>🏰</span><span>Khám Phá</span>
+        </button>
+        <button type="button" id="nav-ranking" onclick="switchTab('ranking')" class="nav-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 hover:text-gold-300 transition flex items-center gap-1.5">
+          <span>🏆</span><span>Bảng Xếp Hạng</span>
+        </button>
+        <button type="button" id="nav-checkin" onclick="switchTab('checkin')" class="nav-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 hover:text-gold-300 transition flex items-center gap-1.5 relative">
+          <span>✨</span><span>Điểm Danh</span>
+          <span id="checkinBadgeDot" class="w-2 h-2 rounded-full bg-rose-500 animate-ping absolute top-1 right-1"></span>
+        </button>
+        <button type="button" id="nav-studio" onclick="switchTab('studio')" class="nav-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 hover:text-gold-300 transition flex items-center gap-1.5">
+          <span>🎨</span><span>Xưởng Sáng Tác</span>
+        </button>
+        <button type="button" id="nav-library" onclick="switchTab('library')" class="nav-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 hover:text-gold-300 transition flex items-center gap-1.5">
+          <span>📚</span><span>Tủ Sách</span>
+        </button>
+        <button type="button" id="nav-admin" onclick="switchTab('admin')" class="nav-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 hover:text-gold-300 transition flex items-center gap-1.5 relative">
+          <span>🛡️</span><span>Kiểm Duyệt (Admin)</span>
+          <span id="adminPendingBadge" class="px-1.5 py-0.2 text-[10px] rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 font-bold">3</span>
+        </button>
+      </nav>
+
+      <!-- Right User Controls: Audio, Currency, Quick Role Switcher & Gmail Auth -->
+      <div class="flex items-center gap-2">
+        <!-- Sound Effects Toggle -->
+        <button type="button" id="soundToggleBtn" onclick="toggleSound()" title="Bật/Tắt Âm Thanh Cổ Ngữ" class="p-2 rounded-lg bg-obsidian border border-slate-700/80 text-gold-300 hover:border-gold-400/50 text-xs flex items-center gap-1">
+          <span id="soundIcon">🔔</span>
+        </button>
+
+        <!-- Currency Display -->
+        <div class="hidden md:flex items-center gap-2.5 bg-obsidian/90 px-3 py-1.5 rounded-xl border border-gold-400/25 text-xs">
+          <div class="flex items-center gap-1" title="Linh Thạch (Dùng mở chương & thưởng tác giả)">
+            <span>💎</span>
+            <span id="headerCrystals" class="font-bold text-aether-400">500</span>
+          </div>
+          <span class="text-slate-700">|</span>
+          <div class="flex items-center gap-1" title="Nguyệt Phiếu (Dùng để Vote truyện lên Top)">
+            <span>🎫</span>
+            <span id="headerTickets" class="font-bold text-gold-400">5</span>
+          </div>
+        </div>
+
+        <!-- Quick Role Switcher for Testing -->
+        <div class="relative">
+          <select id="quickRoleSelect" aria-label="Chuyển nhanh vai trò trải nghiệm" onchange="handleQuickRoleSwitch(this.value)" class="bg-sanctum text-xs text-gold-300 border border-gold-400/30 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-gold-400 cursor-pointer font-medium">
+            <option value="reader">🎭 Vai trò: Độc Giả</option>
+            <option value="creator">🎨 Vai trò: Hoạ Sĩ / Tác Giả</option>
+            <option value="admin">🛡️ Vai trò: Admin Kiểm Duyệt</option>
+          </select>
+        </div>
+
+        <!-- User Profile / Gmail Auth Button -->
+        <button type="button" id="userAuthBtn" onclick="openAuthModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-sanctum to-obsidian border border-gold-400/40 hover:border-gold-400 transition text-xs sm:text-sm">
+          <span id="userAvatarBadge" class="w-6 h-6 rounded-full bg-gold-400/20 border border-gold-400 flex items-center justify-center text-xs">🧙‍♂️</span>
+          <div class="text-left leading-tight">
+            <div id="userNameDisplay" class="font-semibold text-slate-100 flex items-center gap-1">
+              <span>Lữ Khách</span>
+              <span id="gmailVerifiedIcon" class="text-emerald-400" title="Đã xác thực Gmail">✔</span>
+            </div>
+            <div id="userEmailDisplay" class="text-[10px] text-slate-400 hidden sm:block">khampha.aetheris@gmail.com</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 relative z-10 max-w-7xl w-full mx-auto px-3 sm:px-6 py-6">
+
+    <!-- ==================== TAB 1: HOME / DISCOVER ==================== -->
+    <section id="tab-home" class="space-y-8">
+      <!-- Hero Banner: Featured Fantasy Chronicle -->
+      <div id="heroBannerContainer" class="relative rounded-2xl overflow-hidden border border-gold-400/30 shadow-2xl bg-gradient-to-r from-[#121026] via-[#1C163B] to-[#0F172A]">
+        <!-- Decorative SVG Tapestry Background -->
+        <div class="absolute inset-0 opacity-35 pointer-events-none">
+          <svg class="w-full h-full object-cover" viewBox="0 0 1200 420" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id="celestialGlow" cx="75%" cy="45%" r="50%">
+                <stop offset="0%" stop-color="#F5C451" stop-opacity="0.45"/>
+                <stop offset="45%" stop-color="#9333EA" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#090A14" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="1200" height="420" fill="url(#celestialGlow)"/>
+            <!-- Magic Astrolabe Rings -->
+            <circle cx="900" cy="200" r="170" stroke="#F5C451" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="6 6"/>
+            <circle cx="900" cy="200" r="130" stroke="#38BDF8" stroke-opacity="0.25" stroke-width="1"/>
+            <polygon points="900,50 1030,275 770,275" stroke="#F5C451" stroke-opacity="0.2" stroke-width="1.2" fill="none"/>
+            <polygon points="900,350 1030,125 770,125" stroke="#C084FC" stroke-opacity="0.2" stroke-width="1.2" fill="none"/>
+            <!-- Floating Castle Silhouette -->
+            <path d="M830 220 L850 160 L870 190 L900 110 L930 190 L950 155 L970 220 Z" fill="#F5C451" fill-opacity="0.22"/>
+            <path d="M780 260 Q900 320 1020 260 L960 330 L840 330 Z" fill="#1E1B4B" stroke="#F5C451" stroke-opacity="0.4"/>
+          </svg>
+        </div>
+
+        <div class="relative z-10 p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-8 space-y-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-gold-400 text-abyss flex items-center gap-1">
+                <span>👑</span><span>TUYỆT TÁC ĐỀ CỬ ĐẦU TRANG</span>
+              </span>
+              <span id="heroStoryTypeBadge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-arcane-500/30 text-arcane-400 border border-arcane-400/40">
+                📖 Tiểu Thuyết Sử Thi
+              </span>
+              <span class="px-2.5 py-1 rounded-full text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                ✔ Đã Kiểm Duyệt
+              </span>
+            </div>
+
+            <h1 id="heroStoryTitle" class="font-fantasy text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+              Biên Niên Sử Tinh Vân: Kẻ Đánh Cắp Ngọn Lửa Cổ Thần
+            </h1>
+
+            <p id="heroStorySynopsis" class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+              Trên đại lục Aethelgard nơi bảy Mặt Trời Cổ Đại đã tắt sáu, chàng thợ rèn cổ ngữ mù một bên mắt Kaelen vô tình rèn lại thanh Đoản Kiếm Sao Băng và đánh thức tàn hồn của Nữ Thần Ánh Sáng Lyra...
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-300 pt-1">
+              <span id="heroStoryAuthor" class="flex items-center gap-1.5 text-gold-300 font-medium">✍️ Tác giả: Mặc Vũ Tinh Hà</span>
+              <span>•</span>
+              <span id="heroStoryVotes" class="flex items-center gap-1 text-amber-300 font-semibold">🎫 1,420 Nguyệt Phiếu (Top #1)</span>
+              <span>•</span>
+              <span id="heroStoryViews" class="flex items-center gap-1 text-aether-400">👁️ 28.4K lượt đọc</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button type="button" id="heroReadBtn" onclick="openReader(1, 0)" class="btn-gold px-5 py-2.5 rounded-xl text-sm flex items-center gap-2">
+                <span>📖</span><span>Đọc Ngay Chương Mở Đầu</span>
+              </button>
+              <button type="button" id="heroVoteBtn" onclick="openVoteModal(1)" class="btn-arcane px-4 py-2.5 rounded-xl text-sm flex items-center gap-2">
+                <span>🎫</span><span>Bầu Chọn Lên Top</span>
+              </button>
+              <button type="button" onclick="switchTab('checkin')" class="px-4 py-2.5 rounded-xl text-sm bg-obsidian/90 hover:bg-sanctum text-gold-300 border border-gold-400/30 transition flex items-center gap-2">
+                <span>🎁</span><span>Điểm Danh Nhận Thưởng</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Floating Book Cover Preview -->
+          <div class="lg:col-span-4 flex justify-center">
+            <div id="heroCoverArt" onclick="openReader(1, 0)" class="w-48 sm:w-56 h-64 sm:h-72 rounded-2xl overflow-hidden border-2 border-gold-400/60 shadow-2xl cursor-pointer animate-float relative group">
+              <!-- Populated dynamically by renderHero() -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Feature Strip: Gmail Status, Daily Checkin, Role Switch -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="glass-card rounded-xl p-4 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-xl">📧</div>
+            <div>
+              <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-300">Xác Thực Tài Khoản Gmail</h2>
+              <p id="stripGmailStatus" class="text-xs text-slate-300 mt-0.5">Đã xác thực: khampha.aetheris@gmail.com</p>
+            </div>
+          </div>
+          <button type="button" onclick="openAuthModal()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 hover:bg-emerald-500/30 transition">
+            Đổi / OTP
+          </button>
+        </div>
+
+        <div class="glass-card rounded-xl p-4 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-gold-400/15 border border-gold-400/30 flex items-center justify-center text-xl">🌟</div>
+            <div>
+              <h2 class="text-xs font-bold uppercase tracking-wider text-gold-300">Điểm Danh Tinh Tú</h2>
+              <p id="stripCheckinStatus" class="text-xs text-slate-300 mt-0.5">Chuỗi 3 ngày • Nhận Linh Thạch & Phiếu Vote</p>
+            </div>
+          </div>
+          <button type="button" onclick="switchTab('checkin')" class="btn-gold px-3 py-1.5 rounded-lg text-xs">
+            Nhận Quà
+          </button>
+        </div>
+
+        <div class="glass-card rounded-xl p-4 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-arcane-500/15 border border-arcane-400/30 flex items-center justify-center text-xl">🎨</div>
+            <div>
+              <h2 class="text-xs font-bold uppercase tracking-wider text-arcane-400">Hoạ Sĩ & Tác Giả Sáng Tác</h2>
+              <p class="text-xs text-slate-300 mt-0.5">Đăng tiểu thuyết & vẽ truyện tranh</p>
+            </div>
+          </div>
+          <button type="button" onclick="switchTab('studio')" class="btn-arcane px-3 py-1.5 rounded-lg text-xs">
+            Đăng Truyện
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter & Search Bar -->
+      <div class="glass-card rounded-2xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        <!-- Category / Type Filter Buttons -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <button type="button" onclick="setFilterType('all')" id="filter-all" class="filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gold-400 text-abyss transition">
+            ✦ Tất Cả Tác Phẩm
+          </button>
+          <button type="button" onclick="setFilterType('novel')" id="filter-novel" class="filter-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-obsidian text-slate-300 hover:text-gold-300 border border-slate-700 transition">
+            📖 Tiểu Thuyết Chữ
+          </button>
+          <button type="button" onclick="setFilterType('comic')" id="filter-comic" class="filter-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-obsidian text-slate-300 hover:text-gold-300 border border-slate-700 transition">
+            🎨 Truyện Tranh Hoạ Sĩ (Webtoon)
+          </button>
+          <button type="button" onclick="setFilterType('Sử Thi Kỳ Ảo')" id="filter-epic" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-medium bg-obsidian text-slate-300 hover:text-gold-300 border border-slate-700 transition">
+            ⚔️ Sử Thi & Huyền Huyễn
+          </button>
+          <button type="button" onclick="setFilterType('Chữa Lành Huyền Bí')" id="filter-healing" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-medium bg-obsidian text-slate-300 hover:text-gold-300 border border-slate-700 transition">
+            🍵 Chữa Lành & Thời Không
+          </button>
+        </div>
+
+        <!-- Search & Sort -->
+        <div class="flex items-center gap-2">
+          <div class="relative flex-1 sm:w-64">
+            <input id="searchInput" type="text" oninput="renderStoryGrid()" placeholder="Tìm tên truyện, tác giả, hoạ sĩ..." class="w-full bg-abyss border border-slate-700 focus:border-gold-400 rounded-xl pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none" />
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
+          </div>
+          <select id="sortSelect" aria-label="Sắp xếp danh sách truyện" onchange="renderStoryGrid()" class="bg-abyss border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-gold-400">
+            <option value="votes">🔥 Top Nguyệt Phiếu</option>
+            <option value="views">👁️ Lượt Đọc Cao Nhất</option>
+            <option value="reactions">💖 Nhiều Cảm Xúc Nhất</option>
+            <option value="newest">✨ Mới Cập Nhật</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Main Layout: Left 8 Cols Stories Grid + Right 4 Cols Mini Live Top Ranking -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Stories Grid -->
+        <div class="lg:col-span-8 space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="font-fantasy text-lg sm:text-xl font-bold text-gold-300 flex items-center gap-2">
+              <span>📜</span><span>Danh Tác Đã Khai Mở</span>
+              <span id="storyCountLabel" class="text-xs font-sans font-normal text-slate-400">(5 bộ truyện)</span>
+            </h2>
+          </div>
+
+          <div id="storyGridContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Right Sidebar: Live Top Vote Leaderboard & Community Reactions -->
+        <div class="lg:col-span-4 space-y-6">
+          <!-- Top Leaderboard Card -->
+          <div class="glass-card rounded-2xl p-5 rune-border">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-fantasy text-base font-bold text-gold-300 flex items-center gap-1.5">
+                  <span>👑</span><span>Điện Đường Phong Thần</span>
+                </h3>
+                <p class="text-[11px] text-slate-400">Xếp hạng trực tiếp theo Nguyệt Phiếu</p>
+              </div>
+              <button type="button" onclick="switchTab('ranking')" class="text-xs text-gold-400 hover:underline font-medium">Xem tất cả →</button>
+            </div>
+
+            <div id="miniLeaderboardList" class="space-y-3">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Recent Reactions & Activity Feed -->
+          <div class="glass-card rounded-2xl p-5">
+            <h3 class="font-fantasy text-sm font-bold text-arcane-400 flex items-center gap-1.5 mb-3">
+              <span>🔮</span><span>Dòng Chảy Tinh Không (Hoạt Động Mới)</span>
+            </h3>
+            <div id="liveActivityFeed" class="space-y-2.5 text-xs max-h-72 overflow-y-auto pr-1">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: FULL RANKING / VOTE TOP ==================== -->
+    <section id="tab-ranking" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6 sm:p-8 border border-gold-400/30 relative overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-gold-400 font-bold">✦ Bảng Phong Thần Aetheris ✦</span>
+            <h2 class="font-fantasy text-2xl sm:text-3xl font-bold text-white mt-1">Bảng Xếp Hạng Đỉnh Cao</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">
+              Sử dụng <strong class="text-gold-300">Nguyệt Phiếu</strong> nhận được từ Điểm Danh hằng ngày để đẩy bộ truyện yêu thích của bạn lên ngôi vị Đệ Nhất!
+            </p>
+          </div>
+          <div class="flex items-center gap-3 bg-abyss/80 px-4 py-3 rounded-xl border border-gold-400/30">
+            <div>
+              <div class="text-[11px] text-slate-400">Nguyệt Phiếu hiện có</div>
+              <div class="text-lg font-bold text-gold-400 flex items-center gap-1">
+                <span>🎫</span><span id="rankingPageTickets">5</span><span>Phiếu</span>
+              </div>
+            </div>
+            <button type="button" onclick="switchTab('checkin')" class="btn-gold px-3 py-2 rounded-lg text-xs">
+              + Nhận Thêm Phiếu
+            </button>
+          </div>
+        </div>
+
+        <!-- Ranking Category Switcher -->
+        <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-slate-800">
+          <button type="button" onclick="setRankingCriteria('votes')" id="ranktab-votes" class="rank-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-gold-400 text-abyss">
+            🎫 Top Nguyệt Phiếu (Đề Cử)
+          </button>
+          <button type="button" onclick="setRankingCriteria('reactions')" id="ranktab-reactions" class="rank-tab-btn px-4 py-2 rounded-xl text-xs font-medium bg-obsidian text-slate-300 border border-slate-700">
+            🔥 Top Cảm Xúc Sôi Động
+          </button>
+          <button type="button" onclick="setRankingCriteria('views')" id="ranktab-views" class="rank-tab-btn px-4 py-2 rounded-xl text-xs font-medium bg-obsidian text-slate-300 border border-slate-700">
+            👁️ Top Lượt Đọc Tuần
+          </button>
+        </div>
+      </div>
+
+      <!-- Full Ranking List -->
+      <div id="fullRankingContainer" class="space-y-4">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: DAILY CHECK-IN & ALTAR OF STARS ==================== -->
+    <section id="tab-checkin" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6 sm:p-8 border border-gold-400/40 relative overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-7 space-y-3">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-gold-400/20 text-gold-300 border border-gold-400/40">
+              ✨ ĐÀN TẾ TINH TÚ HẰNG NGÀY
+            </span>
+            <h2 class="font-fantasy text-2xl sm:text-3xl font-bold gold-gradient-text">
+              Điểm Danh Tích Luỹ — Nhận Linh Thạch & Nguyệt Phiếu
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Mỗi ngày thắp sáng một Chòm Sao Cổ Ngữ để nhận <strong class="text-aether-400">Linh Thạch 💎</strong> (dùng ủng hộ Hoạ sĩ/Tác giả & mở Rương) và <strong class="text-gold-300">Nguyệt Phiếu 🎫</strong> (dùng Vote truyện lên Top). Điểm danh đủ 7 ngày nhận Danh hiệu & Rương Thần Thoại!
+            </p>
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <div class="bg-abyss/90 px-4 py-2.5 rounded-xl border border-slate-700">
+                <div class="text-[11px] text-slate-400">Chuỗi điểm danh hiện tại</div>
+                <div class="text-base font-bold text-gold-300"><span id="checkinStreakCount">3</span> / 7 Ngày Liên Tiếp</div>
+              </div>
+              <div class="bg-abyss/90 px-4 py-2.5 rounded-xl border border-slate-700">
+                <div class="text-[11px] text-slate-400">Cảnh giới Độc giả</div>
+                <div id="readerRealmBadge" class="text-base font-bold text-arcane-400">Học Đồ Cổ Ngữ (180 EXP)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end">
+            <button type="button" id="mainCheckinActionBtn" onclick="performDailyCheckin()" class="btn-gold py-3.5 px-6 rounded-xl text-sm font-bold flex items-center justify-center gap-2 pulse-gold">
+              <span>🌟</span><span id="mainCheckinBtnText">Điểm Danh Hôm Nay (Ngày 4)</span>
+            </button>
+            <button type="button" onclick="simulateNextDayCheckin()" class="px-4 py-2.5 rounded-xl text-xs font-medium bg-obsidian hover:bg-sanctum text-slate-300 border border-slate-700 transition flex items-center justify-center gap-1.5">
+              <span>⏩</span><span>Mô Phỏng Sang Ngày Tiếp Theo (Test Chuỗi 7 Ngày)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 7-Day Constellation Cards -->
+        <div id="checkinDaysGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mt-8">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Lucky Star Chest / Gacha & Quest Missions -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Star Chest Gacha -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-6 flex flex-col justify-between border border-arcane-400/30">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-arcane-400">🔮 Triệu Hồi Tinh Vân</span>
+              <span class="text-xs text-slate-400">Chi phí: 100 💎 / lần</span>
+            </div>
+            <h3 class="font-fantasy text-xl font-bold text-white">Rương Báu Cổ Thần</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Dùng 100 Linh Thạch để mở Rương Báu Cổ Thần. Tỷ lệ 100% trúng thưởng ngẫu nhiên từ 1–5 Nguyệt Phiếu, EXP Cảnh Giới hoặc hoàn trả gấp đôi Linh Thạch!
+            </p>
+            <div id="gachaResultBox" class="p-4 rounded-xl bg-abyss/90 border border-arcane-400/30 text-center min-h-[88px] flex flex-col items-center justify-center">
+              <span class="text-2xl mb-1">🎁</span>
+              <p class="text-xs text-slate-300">Nhấn nút bên dưới để mở Rương Tinh Tú</p>
+            </div>
+          </div>
+          <button type="button" onclick="spinStarChest()" class="btn-arcane w-full py-3 rounded-xl text-xs sm:text-sm font-bold mt-4 flex items-center justify-center gap-2">
+            <span>✨</span><span>Mở Rương Tinh Tú (-100 💎)</span>
+          </button>
+        </div>
+
+        <!-- Daily Reading & Community Quests -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-6">
+          <h3 class="font-fantasy text-lg font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <span>📜</span><span>Nhiệm Vụ Thánh Điện Hằng Ngày</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Hoàn thành các hoạt động trên trang để nhận thêm phần thưởng miễn phí</p>
+          <div id="dailyQuestsList" class="space-y-3">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: CREATOR & ARTIST STUDIO ==================== -->
+    <section id="tab-studio" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6 border border-gold-400/30">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-arcane-400 font-bold">🎨 Xưởng Chế Tác Huyền Sử</span>
+            <h2 class="font-fantasy text-2xl font-bold text-white mt-1">Không Gian Tác Giả & Hoạ Sĩ Đăng Tải Truyện</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">
+              Sáng tác <strong>Tiểu thuyết chữ</strong> hoặc thiết kế <strong>Truyện tranh minh hoạ (Webtoon)</strong>. Tác phẩm mới sẽ được gửi tới hệ thống <strong>Admin Kiểm Duyệt</strong> trước khi xuất hiện công khai.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="switchStudioMode('newStory')" id="studioBtnNewStory" class="px-4 py-2 rounded-xl text-xs font-bold bg-gold-400 text-abyss">
+              + Tạo Bộ Truyện Mới
+            </button>
+            <button type="button" onclick="switchStudioMode('addChapter')" id="studioBtnAddChapter" class="px-4 py-2 rounded-xl text-xs font-medium bg-obsidian text-slate-200 border border-slate-700 hover:border-gold-400">
+              + Đăng Chương Mới Cho Truyện Có Sẵn
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Studio Mode 1: Create New Story -->
+      <div id="studioNewStoryPane" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-8 glass-card rounded-2xl p-6 space-y-5">
+          <h3 class="font-fantasy text-lg font-bold text-gold-300 border-b border-slate-800 pb-3">
+            1. Thông Tin Bộ Truyện & Chương Mở Đầu
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tên Bộ Truyện *</label>
+              <input id="newStoryTitle" type="text" placeholder="VD: Khế Ước Rồng Bạc..." class="w-full bg-abyss border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-400" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Bút Danh Tác Giả / Hoạ Sĩ *</label>
+              <input id="newStoryAuthor" type="text" value="Lâm Phong Art" class="w-full bg-abyss border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-400" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Định Dạng Tác Phẩm *</label>
+              <select id="newStoryFormat" onchange="toggleStudioComicBuilder()" class="w-full bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-gold-400">
+                <option value="novel">📖 Tiểu Thuyết Chữ (Light Novel)</option>
+                <option value="comic">🎨 Truyện Tranh Hoạ Sĩ (Webtoon/Comic)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Thể Loại Fantasy *</label>
+              <select id="newStoryGenre" class="w-full bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-gold-400">
+                <option value="Sử Thi Kỳ Ảo">⚔️ Sử Thi Kỳ Ảo</option>
+                <option value="Ma Pháp Học Viện">🔮 Ma Pháp Học Viện</option>
+                <option value="Chữa Lành Huyền Bí">🍵 Chữa Lành Huyền Bí</option>
+                <option value="Thần Thoại Bắc Âu">❄️ Thần Thoại Cổ Đại</option>
+                <option value="Thăng Cấp Hầm Ngục">🗡️ Thăng Cấp Hầm Ngục</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Mẫu Bìa Hoạ Đồ (Hoặc tải ảnh)</label>
+              <select id="newStoryCoverPreset" onchange="updateStudioCoverPreview()" class="w-full bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-gold-400">
+                <option value="dragon">🐉 Long Thần Tinh Vân (Đỏ Vàng)</option>
+                <option value="artist">🎨 Hoạ Sĩ Phượng Hoàng (Tím Huyền)</option>
+                <option value="teahouse">🍵 Quán Trà Ngân Hà (Xanh Ngọc)</option>
+                <option value="sword">⚔️ Kiếm Vương Vực Thẳm (Lam Thẫm)</option>
+                <option value="elf">🌿 Rừng Tinh Linh Trắng (Bạc Lục)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Optional Custom Cover Upload -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tải Lên Ảnh Bìa Vẽ Tay Từ Máy Tính (Tuỳ chọn cho Hoạ sĩ)</label>
+            <input id="customCoverFileInput" type="file" accept="image/*" onchange="handleCustomCoverUpload(event)" class="block w-full text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-arcane-500/20 file:text-arcane-400 hover:file:bg-arcane-500/30 cursor-pointer" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tóm Tắt Cốt Truyện (Văn Án) *</label>
+            <textarea id="newStorySynopsis" rows="3" placeholder="Giới thiệu thế giới kỳ ảo, nhân vật chính và xung đột mở màn..." class="w-full bg-abyss border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-gold-400"></textarea>
+          </div>
+
+          <div class="pt-2 border-t border-slate-800 space-y-4">
+            <h4 class="text-sm font-bold text-gold-300">2. Nội Dung Chương 1 Mở Đầu</h4>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tiêu Đề Chương 1 *</label>
+              <input id="newStoryChapTitle" type="text" placeholder="VD: Chương 1: Lời Thề Dưới Chân Tháp Cổ" class="w-full bg-abyss border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-400" />
+            </div>
+
+            <!-- Comic Panel Builder (Shown when format === 'comic') -->
+            <div id="studioComicBuilderBox" class="hidden p-4 rounded-xl bg-abyss/90 border border-arcane-400/40 space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h5 class="text-xs font-bold uppercase tracking-wider text-arcane-400">🎨 Bàn Vẽ Khung Tranh Truyện Tranh (Comic Panels)</h5>
+                  <p class="text-[11px] text-slate-400">Hoạ sĩ có thể tải ảnh trang truyện lên hoặc cấu hình khung tranh minh hoạ Fantasy trực tiếp</p>
+                </div>
+                <button type="button" onclick="addComicPanelDraft()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-arcane-500/30 text-arcane-300 border border-arcane-400/40 hover:bg-arcane-500/40">
+                  + Thêm Khung Tranh
+                </button>
+              </div>
+              <div id="comicPanelsDraftContainer" class="space-y-3">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Text Content Editor -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-xs font-semibold text-slate-300">Nội Dung Chương / Lời Dẫn Truyện *</label>
+                <button type="button" onclick="fillSampleFantasyDraft()" class="text-xs text-gold-400 hover:underline">✨ Chèn mẫu bản thảo Kỳ Ảo nhanh</button>
+              </div>
+              <textarea id="newStoryChapContent" rows="7" placeholder="Nhập nội dung chương truyện hoặc kịch bản chi tiết..." class="w-full bg-abyss border border-slate-700 rounded-xl p-3.5 text-sm text-white font-serifRead leading-relaxed focus:outline-none focus:border-gold-400"></textarea>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-3">
+            <div class="text-xs text-slate-400">
+              🛡️ Trạng thái khi gửi: <span class="text-amber-300 font-semibold">Chờ Admin Kiểm Duyệt</span> (hoặc tự động duyệt nếu bạn đang dùng quyền Admin)
+            </div>
+            <button type="button" onclick="submitNewStoryFromStudio()" class="btn-gold px-6 py-3 rounded-xl text-sm flex items-center gap-2">
+              <span>🚀</span><span>Gửi Đăng Tải & Chờ Kiểm Duyệt</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Live Cover & Card Preview -->
+        <div class="lg:col-span-4 space-y-5">
+          <div class="glass-card rounded-2xl p-5 flex flex-col items-center text-center">
+            <h4 class="font-fantasy text-sm font-bold text-gold-300 mb-3">Xem Trước Bìa Tác Phẩm</h4>
+            <div id="studioCoverPreviewBox" class="w-48 h-64 rounded-2xl overflow-hidden border-2 border-gold-400/50 shadow-xl mb-3">
+              <!-- Rendered by JS -->
+            </div>
+            <p class="text-xs text-slate-400">Bìa truyện được kết xuất bằng đồ hoạ Vector Cổ Ngữ hoặc ảnh do Hoạ sĩ tải lên.</p>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <h4 class="font-fantasy text-sm font-bold text-aether-400">Tác Phẩm Đã Gửi Của Bạn</h4>
+            <div id="mySubmittedStoriesList" class="space-y-2.5 text-xs">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Studio Mode 2: Add Chapter to Existing Story -->
+      <div id="studioAddChapterPane" class="hidden glass-card rounded-2xl p-6 space-y-4">
+        <h3 class="font-fantasy text-lg font-bold text-gold-300">Đăng Chương Mới Cho Bộ Truyện Đang Phát Hành</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Chọn Bộ Truyện *</label>
+            <select id="existingStorySelect" class="w-full bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-gold-400"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tiêu Đề Chương Mới *</label>
+            <input id="existingChapTitle" type="text" placeholder="VD: Chương 4: Khúc Khải Hoàn Của Bầu Trời" class="w-full bg-abyss border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-400" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nội Dung Chương Mới *</label>
+          <textarea id="existingChapContent" rows="6" placeholder="Viết tiếp diễn biến chương mới..." class="w-full bg-abyss border border-slate-700 rounded-xl p-3.5 text-sm text-white font-serifRead leading-relaxed focus:outline-none focus:border-gold-400"></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button type="button" onclick="submitNewChapterToExisting()" class="btn-gold px-6 py-2.5 rounded-xl text-sm">
+            📤 Gửi Chương Mới Lên Hệ Thống
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: PERSONAL LIBRARY ==================== -->
+    <section id="tab-library" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6 border border-gold-400/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-gold-400 font-bold">📚 Tàng Thư Các Cá Nhân</span>
+          <h2 class="font-fantasy text-2xl font-bold text-white mt-1">Tủ Sách Yêu Thích & Lịch Sử Đọc</h2>
+          <p class="text-xs text-slate-300 mt-1">Lưu giữ các bộ truyện bạn đã đánh dấu và chương đang đọc dở</p>
+        </div>
+        <button type="button" onclick="switchTab('home')" class="btn-arcane px-4 py-2 rounded-xl text-xs">
+          + Khám Phá Thêm Truyện
+        </button>
+      </div>
+
+      <div id="libraryGridContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: ADMIN MODERATION DASHBOARD ==================== -->
+    <section id="tab-admin" class="hidden space-y-6">
+      <!-- Admin Header & Role Banner -->
+      <div class="glass-card rounded-2xl p-6 border border-amber-400/40 bg-gradient-to-r from-[#1A1423] via-[#181C36] to-[#111426]">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-400 text-abyss">🛡️ PHÁP ĐÌNH TỐI CAO ADMIN</span>
+              <span id="adminAccessStatusBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                Quyền Quản Trị Viên Đang Bật
+              </span>
+            </div>
+            <h2 class="font-fantasy text-2xl font-bold text-white mt-2">Hệ Thống Kiểm Duyệt Nội Dung & Quản Trị Cộng Đồng</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">
+              Kiểm duyệt các bộ truyện chữ, truyện tranh do Hoạ sĩ/Tác giả đăng tải, xử lý bình luận bị báo cáo và ghim tác phẩm lên đầu trang.
+            </p>
+          </div>
+          <div id="adminQuickActivateBox" class="flex items-center gap-2">
+            <button type="button" onclick="handleQuickRoleSwitch('admin')" class="btn-gold px-4 py-2.5 rounded-xl text-xs font-bold">
+              🔑 Kích Hoạt Quyền Admin Ngay
+            </button>
+          </div>
+        </div>
+
+        <!-- Admin KPI Summary Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+          <div class="bg-abyss/80 p-3.5 rounded-xl border border-amber-400/30">
+            <div class="text-[11px] text-slate-400">Tác phẩm chờ duyệt</div>
+            <div id="adminStatPending" class="text-2xl font-bold text-amber-300 mt-0.5">3</div>
+          </div>
+          <div class="bg-abyss/80 p-3.5 rounded-xl border border-emerald-400/30">
+            <div class="text-[11px] text-slate-400">Truyện đang phát hành</div>
+            <div id="adminStatApproved" class="text-2xl font-bold text-emerald-400 mt-0.5">5</div>
+          </div>
+          <div class="bg-abyss/80 p-3.5 rounded-xl border border-rose-400/30">
+            <div class="text-[11px] text-slate-400">Bình luận cần xử lý</div>
+            <div id="adminStatReports" class="text-2xl font-bold text-rose-400 mt-0.5">2</div>
+          </div>
+          <div class="bg-abyss/80 p-3.5 rounded-xl border border-aether-400/30">
+            <div class="text-[11px] text-slate-400">Tài khoản xác thực Gmail</div>
+            <div class="text-2xl font-bold text-aether-400 mt-0.5">1,284</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Submissions Queue -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-8 space-y-4">
+          <h3 class="font-fantasy text-lg font-bold text-gold-300 flex items-center gap-2">
+            <span>⏳</span><span>Hàng Đợi Kiểm Duyệt Truyện & Chương Mới</span>
+          </h3>
+          <div id="adminPendingQueueList" class="space-y-4">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Reported Comments & Published Story Management -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <h3 class="font-fantasy text-sm font-bold text-rose-400 flex items-center gap-1.5">
+              <span>🚩</span><span>Kiểm Duyệt Bình Luận Bị Báo Cáo</span>
+            </h3>
+            <div id="adminReportedCommentsList" class="space-y-3 text-xs">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <h3 class="font-fantasy text-sm font-bold text-gold-300 flex items-center gap-1.5">
+              <span>👑</span><span>Quản Lý Truyện Đã Xuất Bản & Ghim Banner</span>
+            </h3>
+            <div id="adminPublishedManageList" class="space-y-2.5 text-xs">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 7: STORY & COMIC READER VIEW ==================== -->
+    <section id="tab-reader" class="hidden space-y-6">
+      <!-- Top Reader Control Bar -->
+      <div class="glass-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 sticky top-16 z-30">
+        <div class="flex items-center gap-3">
+          <button type="button" onclick="switchTab('home')" class="px-3 py-1.5 rounded-xl bg-obsidian hover:bg-sanctum border border-slate-700 text-xs font-medium text-slate-200 flex items-center gap-1">
+            <span>←</span><span>Quay lại</span>
+          </button>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 id="readerStoryTitle" class="font-fantasy text-sm sm:text-base font-bold text-gold-300 line-clamp-1">Tên Truyện</h2>
+              <span id="readerFormatBadge" class="px-2 py-0.5 rounded text-[10px] font-semibold bg-arcane-500/20 text-arcane-300 border border-arcane-400/30">Tiểu thuyết</span>
+            </div>
+            <p id="readerAuthorLabel" class="text-[11px] text-slate-400">Tác giả</p>
+          </div>
+        </div>
+
+        <!-- Chapter Selector & Prev/Next -->
+        <div class="flex items-center gap-2">
+          <button type="button" id="prevChapterBtn" onclick="navigateChapter(-1)" class="px-3 py-1.5 rounded-xl bg-obsidian border border-slate-700 hover:border-gold-400 text-xs">
+            ◀ Chương trước
+          </button>
+          <select id="readerChapterSelect" aria-label="Chọn chương truyện" onchange="onSelectChapterDropdown(this.value)" class="bg-abyss border border-gold-400/40 rounded-xl px-3 py-1.5 text-xs text-gold-300 font-semibold focus:outline-none">
+          </select>
+          <button type="button" id="nextChapterBtn" onclick="navigateChapter(1)" class="px-3 py-1.5 rounded-xl bg-obsidian border border-slate-700 hover:border-gold-400 text-xs">
+            Chương sau ▶
+          </button>
+        </div>
+
+        <!-- Typography & Theme Controls -->
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="changeReaderFontSize(-2)" title="Giảm cỡ chữ" class="px-2.5 py-1 rounded-lg bg-obsidian border border-slate-700 text-xs hover:border-gold-400">A-</button>
+          <button type="button" onclick="changeReaderFontSize(2)" title="Tăng cỡ chữ" class="px-2.5 py-1 rounded-lg bg-obsidian border border-slate-700 text-xs hover:border-gold-400">A+</button>
+          <button type="button" onclick="setReaderTheme('night')" title="Nền Đêm Tinh Vân" class="w-6 h-6 rounded-full bg-[#0D1021] border-2 border-gold-400"></button>
+          <button type="button" onclick="setReaderTheme('parchment')" title="Nền Giấy Da Cổ" class="w-6 h-6 rounded-full bg-[#F4ECD8] border border-amber-700"></button>
+          <button type="button" onclick="setReaderTheme('jade')" title="Nền Ngọc Bích" class="w-6 h-6 rounded-full bg-[#0E231F] border border-emerald-400"></button>
+          <button type="button" id="readerBookmarkBtn" onclick="toggleBookmarkCurrentStory()" class="px-3 py-1 rounded-lg bg-obsidian border border-slate-700 text-xs hover:border-gold-400 flex items-center gap-1">
+            <span>🔖</span><span id="readerBookmarkText">Lưu Tủ Sách</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Reading Canvas -->
+      <article id="readerCanvasBox" class="reader-theme-night max-w-4xl mx-auto rounded-2xl p-6 sm:p-12 border shadow-2xl transition-colors duration-200">
+        <div class="text-center border-b border-current/15 pb-6 mb-8">
+          <span id="readerChapterOrderTag" class="text-xs uppercase tracking-widest opacity-70 font-semibold">CHƯƠNG 1</span>
+          <h1 id="readerChapterHeading" class="font-fantasy text-2xl sm:text-3xl font-bold mt-1">Tiêu Đề Chương</h1>
+          <div class="flex items-center justify-center gap-4 text-xs opacity-75 mt-3">
+            <span id="readerWordCountInfo">📜 1,200 chữ</span>
+            <span>•</span>
+            <span id="readerViewsInfo">👁️ 14,200 lượt đọc</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Novel Text OR Illustrated Comic Panels -->
+        <div id="readerBodyContent" class="font-serifRead text-lg leading-relaxed space-y-5">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Bottom Chapter Navigation & Tip/Vote Action -->
+        <div class="mt-12 pt-8 border-t border-current/15 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <button type="button" onclick="navigateChapter(-1)" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-black/25 border border-current/20 text-xs font-semibold hover:opacity-90">
+            ◀ Chương Trước
+          </button>
+          <div class="flex items-center gap-2.5">
+            <button type="button" onclick="openVoteModal(state.currentStoryId)" class="btn-gold px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5">
+              <span>🎫</span><span>Vote Nguyệt Phiếu Đẩy Lên Top</span>
+            </button>
+            <button type="button" onclick="tipAuthorCrystals()" class="btn-arcane px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+              <span>💎</span><span>Thưởng Tác Giả (+50 💎)</span>
+            </button>
+          </div>
+          <button type="button" onclick="navigateChapter(1)" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-black/25 border border-current/20 text-xs font-semibold hover:opacity-90">
+            Chương Tiếp Theo ▶
+          </button>
+        </div>
+      </article>
+
+      <!-- Fantasy Reaction Bar & Comments Section -->
+      <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Reaction Bar -->
+        <div class="glass-card rounded-2xl p-6 text-center space-y-4">
+          <h3 class="font-fantasy text-base font-bold text-gold-300">
+            ✨ Thả Cảm Xúc Của Bạn Cho Chương Truyện Này ✨
+          </h3>
+          <p class="text-xs text-slate-400">Mỗi cảm xúc giúp tăng Độ Nóng của tác phẩm trên Bảng Xếp Hạng và tặng bạn +5 EXP</p>
+          <div id="readerReactionsBar" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="glass-card rounded-2xl p-6 space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="font-fantasy text-lg font-bold text-white flex items-center gap-2">
+              <span>💬</span><span>Bình Luận & Thảo Luận Độc Giả</span>
+              <span id="readerCommentCount" class="text-xs font-sans px-2 py-0.5 rounded-full bg-gold-400/20 text-gold-300">0</span>
+            </h3>
+            <span class="text-xs text-emerald-400 flex items-center gap-1">✔ Đã liên kết tài khoản Gmail</span>
+          </div>
+
+          <!-- Add Comment Form -->
+          <div class="space-y-3 bg-abyss/80 p-4 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-2 text-xs">
+                <span class="text-slate-400">Đính kèm cảm xúc:</span>
+                <select id="commentMoodSelect" aria-label="Cảm xúc bình luận" class="bg-obsidian border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-gold-300">
+                  <option value="🔥 Bùng Cháy">🔥 Bùng Cháy</option>
+                  <option value="💖 Tuyệt Mỹ">💖 Tuyệt Mỹ</option>
+                  <option value="😭 Cảm Động">😭 Cảm Động</option>
+                  <option value="😱 Gay Cấn">😱 Gay Cấn</option>
+                  <option value="🧠 Đỉnh Cao">🧠 Đỉnh Cao</option>
+                  <option value="⚔️ Nhiệt Huyết">⚔️ Nhiệt Huyết</option>
+                </select>
+              </div>
+              <span id="commentingAsLabel" class="text-[11px] text-slate-400">Đang bình luận dưới tên: Lữ Khách</span>
+            </div>
+            <textarea id="commentInputBox" rows="3" placeholder="Chia sẻ cảm nhận, dự đoán cốt truyện hoặc cổ vũ Hoạ sĩ / Tác giả..." class="w-full bg-obsidian border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-gold-400"></textarea>
+            <div class="flex justify-end">
+              <button type="button" onclick="postNewComment()" class="btn-gold px-5 py-2 rounded-xl text-xs font-bold">
+                Gửi Bình Luận (+10 EXP)
+              </button>
+            </div>
+          </div>
+
+          <!-- Comments Feed -->
+          <div id="readerCommentsList" class="space-y-3">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODAL 1: GMAIL LOGIN & OTP VERIFICATION ==================== -->
+  <div id="authModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full rounded-2xl p-6 border border-gold-400/40 space-y-5 relative">
+      <button type="button" onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-sm">✕</button>
+
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-2xl bg-gold-400/15 border border-gold-400/40 mx-auto flex items-center justify-center text-2xl">📧</div>
+        <h3 class="font-fantasy text-xl font-bold text-gold-300">Đăng Nhập & Xác Thực Gmail</h3>
+        <p class="text-xs text-slate-400">Bảo mật tài khoản Độc giả, Hoạ sĩ và Admin bằng xác thực Google Mail</p>
+      </div>
+
+      <!-- One-Click Google Account Selector -->
+      <div class="space-y-2">
+        <div class="text-xs font-semibold text-slate-300">1. Đăng nhập nhanh bằng tài khoản Google (OAuth 2.0):</div>
+        <div class="space-y-2">
+          <button type="button" onclick="quickLoginGoogle('Lữ Khách Tinh Vân', 'khampha.aetheris@gmail.com', 'reader')" class="w-full p-2.5 rounded-xl bg-abyss hover:bg-sanctum border border-slate-700 hover:border-gold-400 transition flex items-center justify-between text-left">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-400 flex items-center justify-center text-sm font-bold text-blue-300">G</span>
+              <div>
+                <div class="text-xs font-bold text-white">Lữ Khách Tinh Vân (Độc Giả)</div>
+                <div class="text-[11px] text-slate-400">khampha.aetheris@gmail.com</div>
+              </div>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Đã xác thực</span>
+          </button>
+
+          <button type="button" onclick="quickLoginGoogle('Lâm Phong Art', 'lamphong.artist@gmail.com', 'creator')" class="w-full p-2.5 rounded-xl bg-abyss hover:bg-sanctum border border-slate-700 hover:border-arcane-400 transition flex items-center justify-between text-left">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-400 flex items-center justify-center text-sm font-bold text-purple-300">🎨</span>
+              <div>
+                <div class="text-xs font-bold text-white">Lâm Phong Art (Hoạ Sĩ / Tác Giả)</div>
+                <div class="text-[11px] text-slate-400">lamphong.artist@gmail.com</div>
+              </div>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-arcane-500/20 text-arcane-300">Hoạ sĩ</span>
+          </button>
+
+          <button type="button" onclick="quickLoginGoogle('Tổng Quản Pháp Đình', 'admin.aetheris@gmail.com', 'admin')" class="w-full p-2.5 rounded-xl bg-abyss hover:bg-sanctum border border-slate-700 hover:border-amber-400 transition flex items-center justify-between text-left">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400 flex items-center justify-center text-sm font-bold text-amber-300">🛡️</span>
+              <div>
+                <div class="text-xs font-bold text-white">Tổng Quản Pháp Đình (Admin)</div>
+                <div class="text-[11px] text-slate-400">admin.aetheris@gmail.com</div>
+              </div>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">Quyền Admin</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Custom Gmail + 6-Digit OTP Verification -->
+      <div class="pt-3 border-t border-slate-800 space-y-3">
+        <div class="text-xs font-semibold text-slate-300">2. Hoặc xác thực địa chỉ Gmail mới bằng mã OTP 6 số:</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <input id="customAuthName" type="text" placeholder="Tên hiển thị của bạn" class="bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-gold-400" />
+          <select id="customAuthRole" aria-label="Vai trò đăng ký" class="bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-gold-400">
+            <option value="reader">Vai trò: Độc Giả</option>
+            <option value="creator">Vai trò: Hoạ Sĩ / Tác Giả</option>
+            <option value="admin">Vai trò: Admin Kiểm Duyệt</option>
+          </select>
+        </div>
+        <div class="flex gap-2">
+          <input id="customGmailInput" type="email" placeholder="nhapemailcuaban@gmail.com" class="flex-1 bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-gold-400" />
+          <button type="button" onclick="sendSimulatedGmailOtp()" class="px-3 py-2 rounded-xl text-xs font-bold bg-aether-500 text-white hover:bg-aether-400 transition shrink-0">
+            Gửi Mã OTP
+          </button>
+        </div>
+
+        <!-- Simulated Gmail Inbox Banner with OTP -->
+        <div id="otpVerificationStepBox" class="hidden p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-400/40 space-y-2.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-emerald-300 font-semibold">📩 Hộp thư Gmail: Mã xác thực của bạn là <strong id="generatedOtpCodeText" class="text-sm text-gold-300 underline">849201</strong></span>
+            <button type="button" onclick="autofillOtpCode()" class="text-[11px] text-gold-300 hover:underline">Tự điền mã</button>
+          </div>
+          <div class="flex gap-2">
+            <input id="otpInputCode" type="text" maxlength="6" placeholder="Nhập 6 số OTP..." class="flex-1 bg-abyss border border-emerald-400/50 rounded-xl px-3 py-2 text-xs text-white tracking-widest font-bold text-center focus:outline-none" />
+            <button type="button" onclick="verifyGmailOtpAndLogin()" class="btn-gold px-4 py-2 rounded-xl text-xs">
+              Xác Thực & Nhận +200 💎
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: VOTE STORY TO TOP ==================== -->
+  <div id="voteModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full rounded-2xl p-6 border border-gold-400/50 space-y-5 relative">
+      <button type="button" onclick="closeVoteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-sm">✕</button>
+
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-2xl bg-gold-400/20 border border-gold-400 mx-auto flex items-center justify-center text-2xl">🎫</div>
+        <h3 class="font-fantasy text-xl font-bold text-gold-300">Bầu Chọn Nguyệt Phiếu Lên Top</h3>
+        <p id="voteModalStoryName" class="text-sm font-semibold text-white">Tên bộ truyện</p>
+      </div>
+
+      <div class="bg-abyss/90 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+        <span class="text-slate-300">Số Nguyệt Phiếu bạn đang có:</span>
+        <span class="font-bold text-gold-400 text-sm"><span id="voteModalUserTickets">5</span> 🎫</span>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2.5">
+        <button type="button" onclick="selectVoteAmount(1)" id="voteAmtBtn-1" class="vote-amt-btn p-3 rounded-xl border border-gold-400 bg-gold-400/20 text-center">
+          <div class="text-base font-bold text-gold-300">1 🎫</div>
+          <div class="text-[10px] text-slate-300">+100 Điểm Top</div>
+        </button>
+        <button type="button" onclick="selectVoteAmount(3)" id="voteAmtBtn-3" class="vote-amt-btn p-3 rounded-xl border border-slate-700 bg-abyss text-center">
+          <div class="text-base font-bold text-gold-300">3 🎫</div>
+          <div class="text-[10px] text-slate-300">+300 Điểm Top</div>
+        </button>
+        <button type="button" onclick="selectVoteAmount(5)" id="voteAmtBtn-5" class="vote-amt-btn p-3 rounded-xl border border-slate-700 bg-abyss text-center">
+          <div class="text-base font-bold text-gold-300">5 🎫</div>
+          <div class="text-[10px] text-slate-300">+500 Điểm Top</div>
+        </button>
+      </div>
+
+      <div>
+        <label class="block text-xs text-slate-300 mb-1">Lời nhắn cổ vũ Tác giả / Hoạ sĩ (Hiển thị trên Dòng Chảy Tinh Không):</label>
+        <input id="voteCheerMessage" type="text" value="Siêu phẩm kỳ ảo! Chúc tác giả sớm bứt phá Top 1!" class="w-full bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-gold-400" />
+      </div>
+
+      <button type="button" onclick="confirmCastVote()" class="btn-gold w-full py-3 rounded-xl text-sm font-bold">
+        🔥 Xác Nhận Bầu Chọn Đẩy Lên Top
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: ADMIN PREVIEW & REJECT MODAL ==================== -->
+  <div id="adminPreviewModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card max-w-2xl w-full rounded-2xl p-6 border border-amber-400/50 space-y-4 relative max-h-[90vh] flex flex-col">
+      <button type="button" onclick="closeAdminPreviewModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-sm">✕</button>
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-400">🔍 Kiểm Duyệt Bản Thảo Chi Tiết</span>
+        <h3 id="adminPreviewTitle" class="font-fantasy text-xl font-bold text-white mt-0.5">Tiêu đề truyện</h3>
+        <p id="adminPreviewMeta" class="text-xs text-slate-400">Tác giả • Thể loại</p>
+      </div>
+      <div id="adminPreviewContentBox" class="flex-1 overflow-y-auto bg-abyss/90 p-4 rounded-xl border border-slate-800 text-sm font-serifRead leading-relaxed space-y-3">
+      </div>
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <input id="adminRejectReasonInput" type="text" placeholder="Nhập lý do từ chối hoặc góp ý chỉnh sửa (nếu từ chối)..." class="w-full bg-abyss border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-400" />
+        <div class="flex items-center justify-end gap-2.5">
+          <button type="button" id="adminModalRejectBtn" class="px-4 py-2 rounded-xl text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-400/40 hover:bg-rose-500/30">
+            ❌ Từ Chối Bản Thảo
+          </button>
+          <button type="button" id="adminModalApproveBtn" class="btn-gold px-5 py-2 rounded-xl text-xs font-bold">
+            ✅ Phê Duyệt & Xuất Bản Ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-slate-800/80 bg-abyss/90 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="text-gold-400 font-fantasy font-bold">AETHERIS CHRONICLES</span>
+        <span>— Nền tảng Đọc Truyện, Hoạ Sĩ Sáng Tác & Kiểm Duyệt Kỳ Ảo</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>✔ Xác thực Gmail OAuth & OTP</span>
+        <span>•</span>
+        <span>✔ Điểm danh Tinh Tú</span>
+        <span>•</span>
+        <span>✔ Bình luận & Vote Top</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== APPLICATION JAVASCRIPT ==================== -->
+  <script>
+    // --- Safe Storage Helper ---
+    function saveStateToStorage(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (e) {}
+    }
+    function loadStateFromStorage(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    // --- Web Audio API Synthesized Fantasy Chimes ---
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function playFantasySound(type) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+        const notes = {
+          chime: [523.25, 659.25, 783.99, 1046.5],
+          vote: [440, 554.37, 659.25, 880],
+          page: [329.63, 392.00],
+          approve: [587.33, 739.99, 880, 1174.66]
+        }[type] || [523.25, 659.25];
+
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+          gain.gain.setValueAtTime(0.08, now + idx * 0.07);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now + idx * 0.07);
+          osc.stop(now + idx * 0.07 + 0.36);
+        });
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const iconEl = document.getElementById('soundIcon');
+      if (iconEl) iconEl.textContent = soundEnabled ? '🔔' : '🔕';
+      showToast(soundEnabled ? 'Đã bật âm thanh cổ ngữ Fantasy' : 'Đã tắt âm thanh hiệu ứng', 'info');
+    }
+
+    // --- Toast Notification ---
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const colors = {
+        success: 'border-gold-400 bg-obsidian/95 text-gold-300',
+        info: 'border-aether-400 bg-obsidian/95 text-aether-400',
+        warning: 'border-amber-400 bg-obsidian/95 text-amber-300',
+        error: 'border-rose-400 bg-obsidian/95 text-rose-300'
+      };
+      const icons = {
+        success: '✨',
+        info: '🔮',
+        warning: '⚠️',
+        error: '🔥'
+      };
+      const el = document.createElement('div');
+      el.className = `pointer-events-auto p-3.5 rounded-xl border shadow-2xl flex items-start gap-2.5 text-xs font-medium transition-all duration-300 ${colors[type] || colors.success}`;
+      el.innerHTML = `<span class="text-base leading-none">${icons[type] || '✨'}</span><div class="flex-1 text-slate-100 leading-snug">${message}</div>`;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(8px)';
+        setTimeout(() => el.remove(), 300);
+      }, 3600);
+    }
+
+    // --- Custom SVG Artwork Generator for Book Covers & Comic Panels ---
+    function getCoverSvgArt(preset, title, customImgData) {
+      if (customImgData) {
+        return `<img src="${customImgData}" alt="${title}" class="w-full h-full object-cover" />`;
+      }
+      const themes = {
+        dragon: {
+          bg1: '#1A0B1E', bg2: '#4A1525', bg3: '#090A14',
+          accent: '#F5C451', secondary: '#FB7185',
+          emblem: `<path d="M100 45 C130 45 150 70 140 105 C130 130 95 140 100 170 C80 150 60 125 70 90 C75 65 85 55 100 45 Z" fill="#F5C451" fill-opacity="0.28" stroke="#F5C451" stroke-width="2"/>
+                   <circle cx="100" cy="105" r="42" stroke="#F5C451" stroke-opacity="0.45" stroke-dasharray="4 4" fill="none"/>
+                   <path d="M100 30 L106 95 L100 185 L94 95 Z" fill="#FDE08D"/>`
+        },
+        artist: {
+          bg1: '#140C2C', bg2: '#3B1D6E', bg3: '#090A14',
+          accent: '#C084FC', secondary: '#38BDF8',
+          emblem: `<circle cx="100" cy="105" r="48" stroke="#C084FC" stroke-width="1.8" fill="none"/>
+                   <polygon points="100,48 142,132 58,132" stroke="#38BDF8" stroke-width="1.5" fill="#C084FC" fill-opacity="0.15"/>
+                   <polygon points="100,162 142,78 58,78" stroke="#F5C451" stroke-width="1.5" fill="none"/>
+                   <circle cx="100" cy="105" r="10" fill="#F5C451"/>`
+        },
+        teahouse: {
+          bg1: '#071F24', bg2: '#114247', bg3: '#080C18',
+          accent: '#34D399', secondary: '#FDE08D',
+          emblem: `<circle cx="100" cy="95" r="38" fill="#FDE08D" fill-opacity="0.2" stroke="#FDE08D" stroke-width="1.8"/>
+                   <path d="M60 140 Q100 115 140 140 L125 165 L75 165 Z" fill="#34D399" fill-opacity="0.3" stroke="#34D399" stroke-width="1.5"/>
+                   <path d="M90 85 Q100 60 110 85 T100 115" stroke="#FDE08D" stroke-width="1.5" fill="none"/>`
+        },
+        sword: {
+          bg1: '#0B1528', bg2: '#1E3A8A', bg3: '#090A14',
+          accent: '#38BDF8', secondary: '#F5C451',
+          emblem: `<path d="M100 28 L108 135 L100 155 L92 135 Z" fill="#38BDF8" stroke="#E0F2FE" stroke-width="1.5"/>
+                   <path d="M72 130 L128 130 L118 140 L82 140 Z" fill="#F5C451"/>
+                   <circle cx="100" cy="100" r="45" stroke="#38BDF8" stroke-opacity="0.4" stroke-dasharray="5 5" fill="none"/>`
+        },
+        elf: {
+          bg1: '#0A1E17', bg2: '#1B4332', bg3: '#090A14',
+          accent: '#A7F3D0', secondary: '#F5C451',
+          emblem: `<path d="M100 40 C130 70 130 130 100 165 C70 130 70 70 100 40 Z" fill="#A7F3D0" fill-opacity="0.2" stroke="#A7F3D0" stroke-width="1.8"/>
+                   <path d="M100 45 L100 160 M100 80 L120 65 M100 105 L78 88 M100 125 L122 110" stroke="#F5C451" stroke-width="1.6"/>`
+        }
+      };
+      const t = themes[preset] || themes.dragon;
+      return `
+      <svg class="w-full h-full" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="bg-${preset}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="${t.bg1}"/>
+            <stop offset="55%" stop-color="${t.bg2}"/>
+            <stop offset="100%" stop-color="${t.bg3}"/>
+          </linearGradient>
+        </defs>
+        <rect width="200" height="280" fill="url(#bg-${preset})"/>
+        <rect x="8" y="8" width="184" height="264" rx="8" fill="none" stroke="${t.accent}" stroke-opacity="0.45" stroke-width="1.2"/>
+        <rect x="13" y="13" width="174" height="254" rx="5" fill="none" stroke="${t.secondary}" stroke-opacity="0.25" stroke-width="0.8"/>
+        <circle cx="22" cy="22" r="3" fill="${t.accent}"/>
+        <circle cx="178" cy="22" r="3" fill="${t.accent}"/>
+        <circle cx="22" cy="258" r="3" fill="${t.accent}"/>
+        <circle cx="178" cy="258" r="3" fill="${t.accent}"/>
+        ${t.emblem}
+        <rect x="14" y="192" width="172" height="70" fill="#090A14" fill-opacity="0.78" rx="6"/>
+        <text x="100" y="212" text-anchor="middle" fill="${t.accent}" font-family="Cinzel, serif" font-size="9" font-weight="bold" letter-spacing="1.5">AETHERIS REALM</text>
+      </svg>`;
+    }
+
+    // --- Illustrated Comic Panel SVG Renderer ---
+    function renderComicPanelArtwork(panel) {
+      if (panel.imageUrl) {
+        return `<img src="${panel.imageUrl}" alt="${panel.caption || 'Comic Panel'}" class="w-full max-h-96 object-cover rounded-xl border border-gold-400/30" />`;
+      }
+      const scenes = {
+        dragon_hall: {
+          bg1: '#160D29', bg2: '#3B123C', accent: '#F5C451', glow: '#C084FC',
+          art: `<circle cx="400" cy="130" r="85" fill="#F5C451" fill-opacity="0.12" stroke="#F5C451" stroke-dasharray="6 4"/>
+                <path d="M220 230 Q320 90 410 150 T590 100" stroke="#C084FC" stroke-width="4" fill="none"/>
+                <path d="M350 220 L390 120 L430 220 Z" fill="#F5C451" fill-opacity="0.25" stroke="#F5C451" stroke-width="1.5"/>
+                <circle cx="390" cy="100" r="14" fill="#38BDF8"/>`
+        },
+        forbidden_library: {
+          bg1: '#0A1328', bg2: '#1E295B', accent: '#38BDF8', glow: '#F5C451',
+          art: `<rect x="120" y="40" width="90" height="190" fill="#0F172A" stroke="#38BDF8" stroke-opacity="0.35"/>
+                <rect x="590" y="40" width="90" height="190" fill="#0F172A" stroke="#38BDF8" stroke-opacity="0.35"/>
+                <circle cx="400" cy="135" r="65" stroke="#38BDF8" stroke-width="2" fill="#38BDF8" fill-opacity="0.1"/>
+                <polygon points="400,75 450,165 350,165" stroke="#F5C451" stroke-width="1.8" fill="none"/>`
+        },
+        crimson_dawn: {
+          bg1: '#2A0919', bg2: '#6D1A36', accent: '#FDA4AF', glow: '#F5C451',
+          art: `<circle cx="400" cy="150" r="95" fill="#FB7185" fill-opacity="0.22"/>
+                <path d="M100 220 Q400 140 700 220 L700 260 L100 260 Z" fill="#090A14"/>
+                <path d="M395 65 L405 65 L412 200 L388 200 Z" fill="#F5C451"/>`
+        },
+        yggdrasil_tree: {
+          bg1: '#071E18', bg2: '#134E4A', accent: '#6EE7B7', glow: '#FDE08D',
+          art: `<path d="M370 250 Q400 170 385 110 Q330 70 270 85 M430 250 Q400 170 415 110 Q470 70 530 85" stroke="#6EE7B7" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <circle cx="400" cy="95" r="75" fill="#6EE7B7" fill-opacity="0.18" stroke="#FDE08D" stroke-dasharray="5 5"/>`
+        }
+      };
+      const sc = scenes[panel.scene] || scenes.dragon_hall;
+      return `
+      <div class="rounded-2xl overflow-hidden border-2 border-gold-400/40 bg-abyss shadow-2xl my-4">
+        <div class="relative">
+          <svg class="w-full h-56 sm:h-64" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="panelGrad-${panel.scene}" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="${sc.bg1}"/>
+                <stop offset="100%" stop-color="${sc.bg2}"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="260" fill="url(#panelGrad-${panel.scene})"/>
+            ${sc.art}
+            <rect x="12" y="12" width="776" height="236" rx="10" fill="none" stroke="${sc.accent}" stroke-opacity="0.35" stroke-width="1.5"/>
+          </svg>
+          <!-- Speech Bubble Overlay -->
+          <div class="absolute bottom-4 left-4 right-4 sm:left-8 sm:right-8 bg-abyss/90 backdrop-blur-md border border-gold-400/50 rounded-xl p-3.5 shadow-lg">
+            <div class="flex items-center gap-2 text-xs font-bold text-gold-300 mb-1">
+              <span>💬 ${panel.speaker || 'Nhân vật'}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-arcane-500/20 text-arcane-300 font-normal">${panel.caption || 'Khung tranh minh hoạ'}</span>
+            </div>
+            <p class="text-xs sm:text-sm text-white italic font-serifRead">"${panel.dialogue}"</p>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    // --- Initial Original Pre-Composed Stories (Novels & Illustrated Comics) ---
+    const initialStories = [
+      {
+        id: 1,
+        title: 'Biên Niên Sử Tinh Vân: Kẻ Đánh Cắp Ngọn Lửa Cổ Thần',
+        author: 'Mặc Vũ Tinh Hà',
+        authorEmail: 'macvu.tinhha@gmail.com',
+        format: 'novel',
+        genre: 'Sử Thi Kỳ Ảo',
+        coverPreset: 'dragon',
+        status: 'approved',
+        featured: true,
+        votes: 1420,
+        views: 28450,
+        synopsis: 'Trên đại lục Aethelgard nơi bảy Mặt Trời Cổ Đại đã tắt sáu, chàng thợ rèn cổ ngữ mù một bên mắt Kaelen tại thành phố bay Solis vô tình rèn lại thanh Đoản Kiếm Sao Băng và đánh thức tàn hồn của Nữ Thần Ánh Sáng Lyra.',
+        reactions: { fire: 428, heart: 312, tear: 95, shock: 184, brain: 267, sword: 390 },
+        chapters: [
+          {
+            title: 'Chương 1: Lò Rèn Dưới Chân Tháp Chuông Đen',
+            wordCount: 950,
+            paragraphs: [
+              'Mưa tro tàn lại bắt đầu rơi xuống thành phố lơ lửng Solis. Từ sau Ngày Hoàng Hôn Thứ Sáu cách đây ba trăm năm, bầu trời đại lục Aethelgard chỉ còn lại duy nhất một vầng thái dương già cỗi mang sắc đỏ sẫm như máu đông, treo lơ lửng giữa những dải tinh vân rách nát.',
+              'Trong xưởng rèn nằm sâu dưới tầng ngầm thứ tư của Tháp Chuông Đen, Kaelen vung búa. Mỗi nhát búa giáng xuống phiến thiên thạch đen đều làm bật ra những tia lửa mang hình ký tự cổ ngữ màu lam ngọc. Con mắt bên trái của chàng đã mất đi ánh sáng từ năm mười bốn tuổi, thay vào đó là một viên Tinh Thạch Thấu Thị do người sư phụ quá cố gắn vào.',
+              '"Một thanh đoản kiếm gãy từ thời Kỷ Nguyên Đầu Tiên ư?" Kaelen khẽ chạm đầu ngón tay chai sần lên lưỡi kiếm phủ đầy rỉ sét tím mà vị khách trùm áo choàng đen vừa để lại trên bàn đá. Qua con mắt Tinh Thạch, chàng bỗng thấy hàng vạn sợi chỉ ánh sáng vàng kim đang đập thình thịch bên trong lớp sắt nguội lạnh như một trái tim còn sống.',
+              'Ngay khoảnh khắc Kaelen nhỏ giọt Dung Dịch Sao Băng đầu tiên lên thân kiếm để khai mở phong ấn, cả lò rèn rung chuyển dữ dội. Ngọn lửa trong lò bỗng vụt cao ba thước, chuyển từ sắc đỏ phàm trần sang màu trắng bạc thuần khiết của thần giới!',
+              'Từ giữa tâm ngọn lửa trắng, bóng hình hư ảo của một thiếu nữ khoác giáp trụ dệt bằng ánh sao chậm rãi bước ra. Đôi mắt nàng rực sáng như hai thiên hà thu nhỏ, giọng nói vang vọng thẳng vào tâm thức Kaelen: "Sau ba thiên niên kỷ chìm trong bóng tối, cuối cùng cũng có một thợ rèn phàm nhân nghe được tiếng gọi của ta... Ngươi có dám cùng ta đốt cháy lại sáu Mặt Trời đã tắt không?"'
+            ]
+          },
+          {
+            title: 'Chương 2: Khế Ước Máu Và Bụi Sao',
+            wordCount: 920,
+            paragraphs: [
+              'Bầu không khí trong xưởng rèn đặc quánh lại bởi uy áp thần thánh. Mọi vũ khí sắt thép treo trên tường đều ngân lên từng hồi trong trẻo như đang cúi chào vị chủ nhân tối cao của bầu trời.',
+              'Kaelen không hề lùi bước. Chàng nắm chặt cán búa cổ ngữ, ánh mắt Tinh Thạch nhìn thẳng vào tàn hồn Nữ Thần Lyra: "Thưa Nữ Thần, Giáo Hội Áo Trắng trên đỉnh Tháp Chuông đã tuyên bố ngài tử trận từ ba ngàn năm trước. Kẻ nào dám nhắc đến tên ngài đều bị khép vào tội Dị Giáo và ném xuống Vực Thẳm Không Đáy."',
+              'Lyra khẽ cười, một nụ cười vừa kiêu hãnh vừa đượm vẻ bi thương: "Chính bảy vị Đại Giáo Hoàng đầu tiên của Giáo Hội Áo Trắng đã đâm thanh Đoản Kiếm Sao Băng này vào tim ta để đánh cắp Thần Cách, tự biến chúng thành những vị thần giả tạo cai trị nhân gian."',
+              'Đúng lúc ấy, tiếng chuông báo động từ đỉnh Tháp Chuông Đen đột ngột ngân vang. Mười hai đạo cột sáng phán quyết xuyên thủng mái vòm đá của khu phố ngầm. Đội Kỵ Sĩ Thanh Trừng đã đánh hơi thấy thần lực thức tỉnh!',
+              'Không một giây do dự, Kaelen đặt bàn tay lên lưỡi Đoản Kiếm Sao Băng. Máu của người thợ rèn hoà cùng bụi sao lấp lánh, khắc lên mu bàn tay chàng ấn ký Ngọn Lửa Khởi Nguyên. "Khế ước đã thành. Đêm nay, Solis sẽ thấy lại ánh sáng thật sự!"'
+            ]
+          },
+          {
+            title: 'Chương 3: Kỵ Sĩ Quân Đoàn Áo Trắng',
+            wordCount: 980,
+            paragraphs: [
+              'Cánh cửa sắt nặng ba tấn của xưởng rèn bị thổi bay bởi một đòn Quang Thuật cấp cao. Bước qua làn khói bụi là Chỉ Huy Trưởng Vaelor — kẻ khoác bộ重 giáp mạ vàng khắc hình đôi cánh sáu mắt, tay cầm trường thương Thánh Phạt.',
+              '"Kaelen của xưởng rèn tầng bốn," giọng Vaelor lạnh lẽo vang lên dưới lớp mặt nạ vàng, "Giao nộp cổ vật vừa thức tỉnh, ta sẽ cho ngươi một cái chết toàn thây."',
+              'Kaelen chậm rãi bước ra khỏi quầng sáng lò rèn. Trên tay chàng không còn là thanh sắt gỉ sét, mà là Đoản Kiếm Sao Băng đang rực cháy thứ ánh sáng của bình minh nguyên thuỷ. Con mắt Tinh Thạch bên trái xoay chuyển, giải mã toàn bộ mười hai điểm yếu trong ma trận phòng ngự của Vaelor chỉ trong nửa nhịp thở.',
+              'Một nhát chém ngang! Không có tiếng kim loại va chạm chát chúa, chỉ có một vệt ngân hà mỏng như sợi tơ lướt qua không trung. Trường thương Thánh Phạt đứt đôi, và lần đầu tiên sau ba trăm năm, cư dân thành phố bay Solis nhìn thấy một cột sáng hoàng kim xuyên thẳng từ lòng đất lên tầng mây đen!'
+            ]
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: 'Hoạ Sĩ Khế Ước: Nét Cọ Triệu Hồi Vực Thẳm',
+        author: 'Lâm Phong Art',
+        authorEmail: 'lamphong.artist@gmail.com',
+        format: 'comic',
+        genre: 'Ma Pháp Học Viện',
+        coverPreset: 'artist',
+        status: 'approved',
+        featured: false,
+        votes: 1185,
+        views: 22190,
+        synopsis: '[Truyện Tranh Màu Webtoon] Tại Học viện Pháp thuật Lumina, mọi pháp sư đều niệm chú bằng trượng pha lê, ngoại trừ Elara — thiếu nữ mang cây cọ vẽ làm từ lông vũ Phượng Hoàng Đen có khả năng biến mọi bức tranh thành thực thể sống.',
+        reactions: { fire: 380, heart: 510, tear: 62, shock: 245, brain: 190, sword: 215 },
+        chapters: [
+          {
+            title: 'Chương 1 (Webtoon): Bức Hoạ Rồng Xương Giữa Đại Sảnh',
+            wordCount: 680,
+            panels: [
+              {
+                scene: 'dragon_hall',
+                speaker: 'Giám Khảo Học Viện Lumina',
+                caption: 'Khung Tranh 1 — Đại Sảnh Khảo Thí Pháp Thuật',
+                dialogue: 'Elara! Ngươi không có nổi một tia ma lực nguyên tố để phát sáng viên Đá Thử Thách, lại dám mang giấy mực phàm tục lên đài quyết đấu sao?'
+              },
+              {
+                scene: 'forbidden_library',
+                speaker: 'Elara (Truyền âm qua nét vẽ)',
+                caption: 'Khung Tranh 2 — Mực Huyết Tinh Khai Mở',
+                dialogue: 'Ma pháp của các người là cầu xin tinh linh ban phát sức mạnh... Còn ma pháp của ta là tự tay tái tạo thế giới trên trang giấy trắng!'
+              },
+              {
+                scene: 'crimson_dawn',
+                speaker: 'Cổ Long Huyết Mặc',
+                caption: 'Khung Tranh 3 — Triệu Hồi Từ Trang Giấy',
+                dialogue: 'GRÀOOOO! Kẻ nào vừa dùng Lông Vũ Phượng Hoàng Đen gọi tên ta từ cõi Hư Không Vĩnh Hằng?!'
+              }
+            ],
+            paragraphs: [
+              'Giữa Đại sảnh Pha Lê của Học viện Lumina, hàng trăm học viên quý tộc đều cười nhạo khi thấy Elara trải cuộn giấy da cừu trước mặt. Không một ai biết rằng lọ mực đen bên hông nàng được pha từ máu của Cổ Long thời viễn cổ.',
+              'Chỉ với ba nét phẩy cọ dứt khoát, không gian phía trên đài đấu bỗng rách toạc như một bức tranh bị xé đôi. Đôi cánh xương khổng lồ phủ lửa tím bước ra khỏi mặt giấy, khiến toàn bộ rào chắn ma thuật của học viện vỡ vụn!'
+            ]
+          },
+          {
+            title: 'Chương 2 (Webtoon): Mực Đêm Và Bóng Ma Thư Viện Cấm',
+            wordCount: 640,
+            panels: [
+              {
+                scene: 'forbidden_library',
+                speaker: 'Thủ Thư Vô Diện',
+                caption: 'Khung Tranh 1 — Tầng Thứ Chín Thư Viện Cấm',
+                dialogue: 'Suốt một trăm năm qua chưa từng có ai bước vào Tầng Chín mà giữ được linh hồn nguyên vẹn, cô gái nhỏ mang cây cọ Phượng Hoàng ạ.'
+              },
+              {
+                scene: 'dragon_hall',
+                speaker: 'Elara',
+                caption: 'Khung Tranh 2 — Phác Hoạ Ánh Trăng',
+                dialogue: 'Ta đến để tìm lại bức chân dung bị xé mất của người hoạ sĩ đầu tiên sáng lập nên học viện này!'
+              }
+            ],
+            paragraphs: [
+              'Đêm xuống tại Thư viện Cấm Lumina, những cuốn sách ma đạo tự động bay lượn giữa không trung như đàn dơi. Elara chấm đầu cọ vào ánh trăng phản chiếu trên mặt hồ, vẽ ra một chiếc chìa khoá bạc mở toang cánh cửa phong ấn lịch sử.'
+            ]
+          },
+          {
+            title: 'Chương 3 (Webtoon): Màu Của Bình Minh Đỏ',
+            wordCount: 710,
+            panels: [
+              {
+                scene: 'crimson_dawn',
+                speaker: 'Hoàng Tử Pháp Sư Cassian',
+                caption: 'Khung Tranh 1 — Đỉnh Tháp Tinh Cầu',
+                dialogue: 'Nếu bức tranh tiếp theo của nàng có thể cứu lấy vương quốc khỏi Đêm Đen Vĩnh Cửu, ta nguyện làm kỵ sĩ hộ vệ bên giá vẽ của nàng trọn đời!'
+              }
+            ],
+            paragraphs: [
+              'Trên đỉnh Tháp Tinh Cầu, Elara bắt đầu pha trộn sắc màu thứ bảy — sắc màu chưa từng tồn tại trong nhân giới, được tạo nên từ giọt nước mắt của một vị thần và tia nắng đầu tiên của bình minh.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: 'Quán Trà Cuối Dải Ngân Hà & Vị Khách Không Tên',
+        author: 'Nguyệt Trà Tử',
+        authorEmail: 'nguyettratu.writer@gmail.com',
+        format: 'novel',
+        genre: 'Chữa Lành Huyền Bí',
+        coverPreset: 'teahouse',
+        status: 'approved',
+        featured: false,
+        votes: 960,
+        views: 19300,
+        synopsis: 'Nằm ở ranh giới giữa cõi Sống và cõi Mộng là quán trà cổ "Vọng Nguyệt Hiên". Chủ quán Diệp Linh pha trà bằng ký ức đã lãng quên của các vị thần. Để đổi một chén trà, mỗi vị khách phải kể lại một bí mật chưa từng nói với ai.',
+        reactions: { fire: 145, heart: 620, tear: 490, shock: 88, brain: 210, sword: 54 },
+        chapters: [
+          {
+            title: 'Chương 1: Chén Trà Tuyết Đầu Mùa Của Vị Vua Mất Nước',
+            wordCount: 890,
+            paragraphs: [
+              'Chuông gió bằng ngọc bích trước hiên quán "Vọng Nguyệt" chỉ ngân lên khi có một linh hồn mang nặng执 niệm đi lạc qua màn sương Ngân Hà. Đêm nay, người đẩy cánh cửa gỗ đàn hương bước vào là một vị kiếm khách khoác chiến bào đã sờn rách, trên vai còn vương những bông tuyết không bao giờ tan.',
+              'Diệp Linh khẽ nâng ấm tử sa nung từ đất sét dưới đáy biển Sao Băng, rót ra một chén trà trong vắt ánh lên sắc xanh của cực quang: "Quán nhỏ không thu vàng bạc thế gian, chỉ thu một đoạn ký ức mà khách muốn chôn giấu nhất. Ngài muốn uống trà Tuyết Đầu Mùa hay trà Quên Lãng?"',
+              'Vị khách nhìn bóng mình phản chiếu trong chén trà — không phải gương mặt phong sương hiện tại, mà là hình ảnh một vị thiếu quân vương mười tám tuổi đứng trên tường thành bốc cháy. "Ta từng là vua của vương quốc Tuyết Liên," người khách trầm giọng kể, "Vào ngày kinh thành thất thủ, ta đã nói dối nàng công chúa hộ quốc rằng ta chưa từng yêu nàng, chỉ để nàng chịu lên thuyền rời khỏi thành trì đang sụp đổ..."',
+              'Hương trà bốc lên, kết thành hình một đoá sen tuyết nở rộ giữa không trung. Diệp Linh mỉm cười dịu dàng: "Bông tuyết trên vai ngài suốt một trăm năm qua không phải băng giá của mùa đông, mà là lời hẹn ước của nàng ấy gửi theo gió bắc. Hãy uống cạn chén trà này, người ngài đợi đã đứng ở đầu cầu Ngân Hà từ rất lâu rồi."'
+            ]
+          },
+          {
+            title: 'Chương 2: Chiếc Đồng Hồ Cát Chảy Ngược',
+            wordCount: 840,
+            paragraphs: [
+              'Vị khách thứ hai trong tuần trăng máu là một thiếu nữ đeo chiếc đồng hồ cát bằng pha lê tím trên cổ. Những hạt cát bên trong không rơi xuống dưới mà lại lơ lửng bay ngược lên đỉnh bình.',
+              '"Em là một Thời Không Sư tập sự," cô gái đặt chiếc đồng hồ lên mặt bàn gỗ ấm áp, "Em đã quay ngược thời gian bốn mươi chín lần chỉ để ngăn anh trai mình bước vào Cổng Thần Phạt, nhưng dù em thay đổi bao nhiêu chi tiết, kết cục vẫn không đổi thay..."',
+              'Diệp Linh thêm một cánh hoa Quỳnh Hương nở lúc giao thừa vào ấm trà: "Bởi vì người cố tình khoá dòng thời gian đó lại không phải định mệnh, mà chính là anh trai em — người đã dùng sinh mệnh của mình ở lần lặp đầu tiên để bảo vệ em khỏi sự sụp đổ của không gian."'
+            ]
+          },
+          {
+            title: 'Chương 3: Lá Thư Gửi Tới Nghìn Năm Sau',
+            wordCount: 860,
+            paragraphs: [
+              'Khi ánh bình minh của chiều không gian thứ bảy vừa hé rạng, một chú chim bồ câu kết bằng giấy cổ ngữ đáp xuống hiên quán Vọng Nguyệt. Bên trong đôi cánh giấy là bức thư được viết từ một ngàn năm sau gửi ngược về quá khứ cho chính chủ quán Diệp Linh...'
+            ]
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: 'Kiếm Vương Trở Lại Từ Tầng Thứ Mười Ba',
+        author: 'Hắc Kiếm Sư',
+        authorEmail: 'hackiemsu@gmail.com',
+        format: 'novel',
+        genre: 'Thăng Cấp Hầm Ngục',
+        coverPreset: 'sword',
+        status: 'approved',
+        featured: false,
+        votes: 875,
+        views: 17640,
+        synopsis: 'Sau 100 năm bị phong ấn dưới đáy Mê Cung Bất Tận Tartaros bởi chính những người đồng đội cũ phản bội, Kiếm Vương Veyron phá vỡ xiềng xích bước ra kỷ nguyên mới nơi các Tháp Pháp Sư thống trị.',
+        reactions: { fire: 512, heart: 140, tear: 45, shock: 310, brain: 195, sword: 640 },
+        chapters: [
+          {
+            title: 'Chương 1: Tiếng Thở Dài Của Thanh Kiếm Gỉ Sét',
+            wordCount: 910,
+            paragraphs: [
+              'Một trăm năm trong bóng tối vĩnh cửu của Tầng Thứ Mười Ba Mê Cung Tartaros đủ để làm mục nát cả xương cốt của loài Rồng Đá, nhưng không thể bào mòn ý chí của Veyron.',
+              'Rắc! Sợi xích thần thiết cuối cùng giam cầm tứ chi chàng nổ tung thành từng mảnh vụn. Veyron chậm rãi đứng dậy, rút thanh trọng kiếm Hắc Nguyệt cắm sâu dưới nền đá dung nham. Những vết nứt trên lưỡi kiếm lập tức hấp thụ ma khí của cả tầng hầm ngục, phát ra tiếng ngân trầm đục như tiếng gầm của dã thú.',
+              '"Bốn vị Thánh Nhân từng cùng ta vào sinh ra tử..." Veyron ngước nhìn bầu trời giả tạo của mê cung, khoé môi nhếch lên lạnh giá, "Các ngươi tưởng giam ta dưới đáy vực sâu này một thế kỷ là có thể yên tâm ngồi trên ngai vàng Tháp Pháp Sư sao? Cuộc đi săn bây giờ mới bắt đầu."'
+            ]
+          },
+          {
+            title: 'Chương 2: Bữa Tiệc Của Những Kẻ Phản Bội',
+            wordCount: 880,
+            paragraphs: [
+              'Tại thủ đô Hoàng Kim Aurea, đại lễ kỷ niệm một trăm năm Ngày Diệt Ma đang diễn ra vô cùng tráng lệ. Bức tượng đồng của Veyron đứng ở góc khuất quảng trường với dòng chữ khắc: "Người anh hùng đã hy sinh", trong khi kẻ phản bội năm xưa đang nâng ly rượu mừng trên đài cao...',
+              'Đúng khoảnh khắc pháo hoa ma thuật bừng sáng trên bầu trời đêm, cổng dịch chuyển cổ đại giữa quảng trường — vốn đã tắt ngấm suốt một thế kỷ — đột nhiên bùng lên cột lửa màu lam thẫm!'
+            ]
+          }
+        ]
+      },
+      {
+        id: 5,
+        title: 'Khúc Ca Của Rừng Tinh Linh Trắng',
+        author: 'Sylphie Nguyễn',
+        authorEmail: 'sylphie.art@gmail.com',
+        format: 'comic',
+        genre: 'Thần Thoại Bắc Âu',
+        coverPreset: 'elf',
+        status: 'approved',
+        featured: false,
+        votes: 740,
+        views: 14800,
+        synopsis: '[Truyện Tranh Hoạ Sĩ] Cuộc chiến bảo vệ Đại Thụ Thế Giới Yggdrasil của Nữ hoàng Tinh Linh Tuyết Elowen trước sự xâm lăng của Quân Đoàn Máy Móc Hơi Nước Hắc Ám.',
+        reactions: { fire: 190, heart: 410, tear: 185, shock: 120, brain: 130, sword: 240 },
+        chapters: [
+          {
+            title: 'Chương 1 (Webtoon): Mũi Tên Ánh Trăng Trên Đỉnh Yggdrasil',
+            wordCount: 620,
+            panels: [
+              {
+                scene: 'yggdrasil_tree',
+                speaker: 'Nữ Hoàng Tinh Linh Elowen',
+                caption: 'Khung Tranh 1 — Tán Cây Thế Giới Yggdrasil',
+                dialogue: 'Hơi thở của rừng già đang rỉ máu... Quân đoàn cơ giới của Đế Chế Sắt Đen đã vượt qua Dãy Núi Sương Mù rồi!'
+              },
+              {
+                scene: 'forbidden_library',
+                speaker: 'Đại Tư Tế Cổ Thụ',
+                caption: 'Khung Tranh 2 — Cung Tên Nguyệt Quang',
+                dialogue: 'Xin Nữ hoàng hãy giương cây cung được kết từ nhánh cây đầu tiên của Yggdrasil. Cả khu rừng sẽ hoá thành mũi tên cùng ngài!'
+              }
+            ],
+            paragraphs: [
+              'Dưới tán lá bạc phát sáng của Đại Thụ Thế Giới, hàng vạn tinh linh ánh sáng đồng loạt hoà giọng ngân vang khúc ca cổ đại. Mũi tên Nguyệt Quang rời dây cung, xé toạc màn khói đen công nghiệp đang bao phủ bầu trời phương Bắc.'
+            ]
+          },
+          {
+            title: 'Chương 2 (Webtoon): Trái Tim Bằng Dây Dầu Và Hoa Tuyết',
+            wordCount: 650,
+            panels: [
+              {
+                scene: 'yggdrasil_tree',
+                speaker: 'Người Máy Cổ Đại Số 09',
+                caption: 'Khung Tranh 1 — Cuộc Gặp Gỡ Giữa Rừng Tuyết',
+                dialogue: 'Tại sao ngươi không bắn xuyên qua lõi năng lượng của ta, hỡi Tinh Linh? Trong lồng ngực bằng thép của ta vừa mọc lên một nhành hoa tuyết...'
+              }
+            ],
+            paragraphs: [
+              'Giữa chiến trường khốc liệt, một cỗ máy chiến đấu khổng lồ của kẻ địch bỗng dừng lại khi một bông hoa tuyết tinh linh rơi vào lõi ma năng của nó, đánh thức ký ức con người đã bị phong ấn từ lâu.'
+            ]
+          }
+        ]
+      }
+    ];
+
+    // --- Initial Pending Submissions for Admin Moderation ---
+    const initialPendingQueue = [
+      {
+        id: 101,
+        title: 'Giả Kim Thuật Sư Thành Phố Ngầm Nocturne',
+        author: 'Hoàng Minh Alchemist',
+        authorEmail: 'hoangminh.alchemy@gmail.com',
+        format: 'novel',
+        genre: 'Sử Thi Kỳ Ảo',
+        coverPreset: 'sword',
+        submittedAt: '15 phút trước',
+        synopsis: 'Dưới lòng đất sâu 5.000 mét của thành phố Nocturne, nơi ánh sáng mặt trời là một truyền thuyết xa xỉ, chàng giả kim thuật sư trẻ tuổi tìm ra công thức chế tạo Mặt Trời Nhân Tạo từ vàng ròng và linh hồn cổ ngữ.',
+        chapters: [
+          {
+            title: 'Chương 1: Công Thức Cấm Số 07',
+            wordCount: 780,
+            paragraphs: [
+              'Trong phòng thí nghiệm ngập mùi lưu huỳnh và thảo dược phát quang, bình chưng cất bằng pha lê đen của Julian bắt đầu sôi sục. Suốt mười năm qua, Hội Đồng Thành Phố Ngầm luôn khẳng định mặt đất phía trên đã bị huỷ diệt bởi độc khí.',
+              'Thế nhưng hôm nay, một hạt giống hoa hướng dương rơi xuống từ khe nứt địa tầng sâu thẳm đã nảy mầm ngay giữa vòng tròn giả kim của chàng — minh chứng sống động rằng bầu trời xanh phía trên vẫn đang tồn tại!'
+            ]
+          }
+        ]
+      },
+      {
+        id: 102,
+        title: 'Bản Giao Hưởng Của Pháp Sư Mù & Con Rối Bạc',
+        author: 'Hạ Vy Illustration',
+        authorEmail: 'havy.comic@gmail.com',
+        format: 'comic',
+        genre: 'Chữa Lành Huyền Bí',
+        coverPreset: 'artist',
+        submittedAt: '42 phút trước',
+        synopsis: '[Truyện Tranh Hoạ Sĩ] Chuyến hành trình qua mười hai vương quốc sương mù của nhạc sư mù Orpheus và nàng rối dây bằng bạc tự có ý thức.',
+        chapters: [
+          {
+            title: 'Chương 1 (Webtoon): Dây Đàn Bằng Tơ Ánh Trăng',
+            wordCount: 640,
+            panels: [
+              {
+                scene: 'forbidden_library',
+                speaker: 'Nhạc Sư Orpheus',
+                caption: 'Khung Tranh 1 — Quảng Trường Sương Mù',
+                dialogue: 'Dù đôi mắt ta không còn nhìn thấy sắc màu thế gian, tiếng bước chân bằng bạc của em vẫn là nốt nhạc đẹp nhất trong bản giao hưởng này.'
+              },
+              {
+                scene: 'dragon_hall',
+                speaker: 'Con Rối Bạc Aria',
+                caption: 'Khung Tranh 2 — Khúc Nhạc Thức Tỉnh',
+                dialogue: 'Chủ nhân ơi, trái tim cơ học của em vừa đập nhịp đầu tiên khi ngài gảy khúc ca ban mai!'
+              }
+            ],
+            paragraphs: [
+              'Mỗi khi tiếng đàn hạc cổ ngữ của Orpheus cất lên, những sợi dây bạc điều khiển Aria lại hoá thành đôi cánh thiên thần rực rỡ giữa màn đêm.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 103,
+        title: 'Thợ Săn Ác Mộng Giữa Kinh Thành Phồn Hoa',
+        author: 'Kỳ Phong',
+        authorEmail: 'kyphong.fantasy@gmail.com',
+        format: 'novel',
+        genre: 'Ma Pháp Học Viện',
+        coverPreset: 'teahouse',
+        submittedAt: '1 giờ trước',
+        synopsis: 'Khi cư dân kinh thành chìm vào giấc ngủ, những cơn ác mộng sẽ kết tinh thành quái vật thực sự ngoài đời. Đội Tuần Đêm Vũ Linh là lá chắn duy nhất giữa giấc mơ và vực thẳm.',
+        chapters: [
+          {
+            title: 'Chương 1: Tiếng Chuông Lúc Không Giờ',
+            wordCount: 720,
+            paragraphs: [
+              'Đúng mười hai giờ đêm, toàn bộ đèn lồng trên phố Trường An Kỳ Ảo chuyển sang màu tím sẫm. Vũ Linh rút chiếc đèn lồng thu hồn bên hông, bước vào giấc mộng của vị thừa tướng đang bị Thực Mộng Thú vây hãm...'
+            ]
+          }
+        ]
+      }
+    ];
+
+    // --- Initial Comments & Reported Comments ---
+    const initialComments = [
+      {
+        id: 501,
+        storyId: 1,
+        chapterIdx: 0,
+        user: 'Kiếm Khách Tinh Hà',
+        email: 'kiemkhach.99@gmail.com',
+        mood: '🔥 Bùng Cháy',
+        text: 'Mở đầu cuốn thực sự! Hình ảnh lò rèn cổ ngữ dưới chân Tháp Chuông Đen và Nữ Thần Lyra bước ra từ ngọn lửa trắng làm mình nổi da gà. Đã vote 5 Nguyệt Phiếu!',
+        time: '10 phút trước',
+        likes: 42,
+        reported: false
+      },
+      {
+        id: 502,
+        storyId: 1,
+        chapterIdx: 0,
+        user: 'Nguyệt Ảnh',
+        email: 'nguyetanh.reader@gmail.com',
+        mood: '💖 Tuyệt Mỹ',
+        text: 'Văn phong đậm chất sử thi Bắc Âu pha lẫn huyền huyễn phương Đông. Hóng chương 4 quá tác giả Mặc Vũ Tinh Hà ơi!',
+        time: '25 phút trước',
+        likes: 29,
+        reported: false
+      },
+      {
+        id: 503,
+        storyId: 2,
+        chapterIdx: 0,
+        user: 'Minh Quân ArtFan',
+        email: 'minhquan.art@gmail.com',
+        mood: '😱 Gay Cấn',
+        text: 'Khung tranh Elara triệu hồi Cổ Long Huyết Mặc từ trang giấy đẹp mê hồn! Hoạ sĩ Lâm Phong thiết kế bố cục quá đỉnh.',
+        time: '18 phút trước',
+        likes: 51,
+        reported: false
+      },
+      {
+        id: 504,
+        storyId: 3,
+        chapterIdx: 0,
+        user: 'Mộng Du Khách',
+        email: 'mongdu@gmail.com',
+        mood: '😭 Cảm Động',
+        text: 'Đọc câu chuyện vị vua mất nước ở quán trà Vọng Nguyệt mà rưng rưng nước mắt. Đúng chuẩn truyện chữa lành tâm hồn.',
+        time: '35 phút trước',
+        likes: 37,
+        reported: false
+      },
+      {
+        id: 505,
+        storyId: 1,
+        chapterIdx: 1,
+        user: 'Tài Khoản Ẩn Danh 404',
+        email: 'spam.bot404@gmail.com',
+        mood: '⚔️ Nhiệt Huyết',
+        text: '[Bình luận bị báo cáo] Quảng cáo cày thuê game không liên quan đến nội dung truyện, tiết lộ trước cốt truyện chương cuối không gắn cảnh báo Spoiler!',
+        time: '50 phút trước',
+        likes: 1,
+        reported: true,
+        reportReason: 'Spam quảng cáo & Spoil cốt truyện'
+      },
+      {
+        id: 506,
+        storyId: 2,
+        chapterIdx: 0,
+        user: 'Hắc Ám Tạp Âm',
+        email: 'troll.account@gmail.com',
+        mood: '🔥 Bùng Cháy',
+        text: '[Bình luận bị báo cáo] Ngôn từ khiêu khích tranh cãi giữa các nhóm độc giả trong phần thảo luận chương 1.',
+        time: '1 giờ trước',
+        likes: 0,
+        reported: true,
+        reportReason: 'Ngôn từ gây mất đoàn kết cộng đồng'
+      }
+    ];
+
+    // --- Main Application State ---
+    const state = {
+      activeTab: 'home',
+      user: {
+        name: 'Lữ Khách Tinh Vân',
+        email: 'khampha.aetheris@gmail.com',
+        role: 'reader', // 'reader' | 'creator' | 'admin'
+        gmailVerified: true,
+        crystals: 500,
+        tickets: 5,
+        exp: 180,
+        checkinStreak: 3,
+        checkedInToday: false
+      },
+      filterType: 'all',
+      rankingCriteria: 'votes',
+      currentStoryId: 1,
+      currentChapterIdx: 0,
+      readerFontSize: 18,
+      readerTheme: 'night',
+      bookmarks: [1, 2],
+      userReactionHistory: {},
+      selectedVoteStoryId: 1,
+      selectedVoteAmount: 1,
+      pendingOtpCode: null,
+      customCoverBase64: null,
+      studioDraftPanels: [
+        {
+          scene: 'dragon_hall',
+          speaker: 'Nhân Vật Chính',
+          caption: 'Khung Tranh 1 — Khởi Nguyên',
+          dialogue: 'Ánh sáng của cổ ngữ đang thức giấc dưới ngòi bút của ta!',
+          imageUrl: ''
+        }
+      ],
+      quests: [
+        { id: 'q1', title: 'Điểm danh Đàn Tế Tinh Tú hôm nay', rewardCrystals: 80, rewardTickets: 2, done: false, claimed: false },
+        { id: 'q2', title: 'Thả cảm xúc cho ít nhất 1 chương truyện', rewardCrystals: 50, rewardTickets: 1, done: false, claimed: false },
+        { id: 'q3', title: 'Viết 1 bình luận thảo luận văn minh', rewardCrystals: 60, rewardTickets: 1, done: false, claimed: false },
+        { id: 'q4', title: 'Dùng Nguyệt Phiếu bầu chọn truyện lên Top', rewardCrystals: 100, rewardTickets: 1, done: false, claimed: false }
+      ],
+      stories: loadStateFromStorage('aetheris_stories_v1', initialStories),
+      pendingQueue: loadStateFromStorage('aetheris_pending_v1', initialPendingQueue),
+      comments: loadStateFromStorage('aetheris_comments_v1', initialComments),
+      activities: [
+        '🎫 <strong>Kiếm Khách Tinh Hà</strong> vừa bầu chọn <strong>5 Nguyệt Phiếu</strong> cho <em>Biên Niên Sử Tinh Vân</em>',
+        '💖 <strong>Minh Quân ArtFan</strong> thả cảm xúc <em>Tuyệt Mỹ</em> tại <em>Hoạ Sĩ Khế Ước Chương 1</em>',
+        '🛡️ <strong>Admin Pháp Đình</strong> đã phê duyệt bộ truyện <em>Khúc Ca Của Rừng Tinh Linh Trắng</em>',
+        '🌟 <strong>Nguyệt Ảnh</strong> vừa điểm danh Ngày 7 nhận <strong>Rương Thần Thoại (+300 💎)</strong>'
+      ]
+    };
+
+    // --- Tab Navigation ---
+    function switchTab(tabName) {
+      state.activeTab = tabName;
+      const tabs = ['home', 'ranking', 'checkin', 'studio', 'library', 'admin', 'reader'];
+      tabs.forEach(t => {
+        const sec = document.getElementById(`tab-${t}`);
+        if (sec) sec.classList.toggle('hidden', t !== tabName);
+        const navBtn = document.getElementById(`nav-${t}`);
+        if (navBtn) {
+          if (t === tabName) {
+            navBtn.className = 'nav-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 bg-gold-400 text-abyss relative';
+          } else {
+            navBtn.className = 'nav-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 hover:text-gold-300 transition flex items-center gap-1.5 relative';
+          }
+        }
+      });
+
+      if (tabName === 'home') {
+        renderHero();
+        renderStoryGrid();
+        renderMiniLeaderboard();
+        renderActivityFeed();
+      } else if (tabName === 'ranking') {
+        renderFullRanking();
+      } else if (tabName === 'checkin') {
+        renderCheckinAltar();
+        renderDailyQuests();
+      } else if (tabName === 'studio') {
+        renderStudioView();
+      } else if (tabName === 'library') {
+        renderLibrary();
+      } else if (tabName === 'admin') {
+        renderAdminDashboard();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- Header & User Status Update ---
+    function updateHeaderUI() {
+      document.getElementById('headerCrystals').textContent = state.user.crystals.toLocaleString('vi-VN');
+      document.getElementById('headerTickets').textContent = state.user.tickets;
+      const rankTickets = document.getElementById('rankingPageTickets');
+      if (rankTickets) rankTickets.textContent = state.user.tickets;
+
+      const roleIcons = { reader: '🧙‍♂️', creator: '🎨', admin: '🛡️' };
+      document.getElementById('userAvatarBadge').textContent = roleIcons[state.user.role] || '🧙‍♂️';
+      document.getElementById('userNameDisplay').innerHTML = `<span>${state.user.name}</span><span class="text-emerald-400" title="Đã xác thực Gmail">✔</span>`;
+      document.getElementById('userEmailDisplay').textContent = state.user.email;
+      document.getElementById('stripGmailStatus').textContent = `Đã xác thực: ${state.user.email}`;
+
+      const roleSelect = document.getElementById('quickRoleSelect');
+      if (roleSelect && roleSelect.value !== state.user.role) {
+        roleSelect.value = state.user.role;
+      }
+
+      const dot = document.getElementById('checkinBadgeDot');
+      if (dot) dot.classList.toggle('hidden', state.user.checkedInToday);
+
+      const pendingBadge = document.getElementById('adminPendingBadge');
+      if (pendingBadge) {
+        pendingBadge.textContent = state.pendingQueue.length;
+        pendingBadge.classList.toggle('hidden', state.pendingQueue.length === 0);
+      }
+
+      const realmName = state.user.exp >= 500
+        ? 'Chúa Tể Thần Thoại'
+        : state.user.exp >= 300
+        ? 'Hiền Giả Tinh Vân'
+        : 'Học Đồ Cổ Ngữ';
+      const realmEl = document.getElementById('readerRealmBadge');
+      if (realmEl) realmEl.textContent = `${realmName} (${state.user.exp} EXP)`;
+
+      document.getElementById('stripCheckinStatus').textContent =
+        `Chuỗi ${state.user.checkinStreak} ngày • ${state.user.checkedInToday ? 'Đã nhận hôm nay ✔' : 'Chưa nhận quà hôm nay!'}`;
+    }
+
+    function handleQuickRoleSwitch(newRole) {
+      const profiles = {
+        reader: { name: 'Lữ Khách Tinh Vân', email: 'khampha.aetheris@gmail.com', role: 'reader' },
+        creator: { name: 'Lâm Phong Art', email: 'lamphong.artist@gmail.com', role: 'creator' },
+        admin: { name: 'Tổng Quản Pháp Đình', email: 'admin.aetheris@gmail.com', role: 'admin' }
+      };
+      const p = profiles[newRole] || profiles.reader;
+      state.user.name = p.name;
+      state.user.email = p.email;
+      state.user.role = p.role;
+      state.user.gmailVerified = true;
+      updateHeaderUI();
+
+      if (newRole === 'creator') {
+        showToast('🎨 Đã chuyển sang vai trò Hoạ Sĩ / Tác Giả (lamphong.artist@gmail.com)', 'info');
+        if (state.activeTab !== 'studio') switchTab('studio');
+      } else if (newRole === 'admin') {
+        showToast('🛡️ Đã kích hoạt quyền Quản Trị Viên Admin (admin.aetheris@gmail.com)', 'warning');
+        if (state.activeTab !== 'admin') switchTab('admin');
+        else renderAdminDashboard();
+      } else {
+        showToast('🧙‍♂️ Đã chuyển sang vai trò Độc Giả (khampha.aetheris@gmail.com)', 'success');
+        if (state.activeTab === 'admin') renderAdminDashboard();
+      }
+    }
+
+    // --- Hero Banner Rendering ---
+    function renderHero() {
+      const featured = state.stories.find(s => s.featured) || state.stories[0];
+      if (!featured) return;
+
+      const sortedByVotes = [...state.stories].sort((a, b) => b.votes - a.votes);
+      const rankIdx = sortedByVotes.findIndex(s => s.id === featured.id) + 1;
+
+      document.getElementById('heroStoryTypeBadge').textContent =
+        featured.format === 'comic' ? '🎨 Truyện Tranh Hoạ Sĩ (Webtoon)' : `📖 Tiểu Thuyết • ${featured.genre}`;
+      document.getElementById('heroStoryTitle').textContent = featured.title;
+      document.getElementById('heroStorySynopsis').textContent = featured.synopsis;
+      document.getElementById('heroStoryAuthor').textContent =
+        `${featured.format === 'comic' ? '🎨 Hoạ sĩ:' : '✍️ Tác giả:'} ${featured.author}`;
+      document.getElementById('heroStoryVotes').textContent =
+        `🎫 ${featured.votes.toLocaleString('vi-VN')} Nguyệt Phiếu (Top #${rankIdx})`;
+      document.getElementById('heroStoryViews').textContent =
+        `👁️ ${(featured.views / 1000).toFixed(1)}K lượt đọc`;
+
+      document.getElementById('heroReadBtn').setAttribute('onclick', `openReader(${featured.id}, 0)`);
+      document.getElementById('heroVoteBtn').setAttribute('onclick', `openVoteModal(${featured.id})`);
+      const coverEl = document.getElementById('heroCoverArt');
+      coverEl.setAttribute('onclick', `openReader(${featured.id}, 0)`);
+      coverEl.innerHTML = getCoverSvgArt(featured.coverPreset, featured.title, featured.customCover);
+    }
+
+    // --- Story Filtering & Grid Rendering ---
+    function setFilterType(filterVal) {
+      state.filterType = filterVal;
+      const mapIds = {
+        all: 'filter-all',
+        novel: 'filter-novel',
+        comic: 'filter-comic',
+        'Sử Thi Kỳ Ảo': 'filter-epic',
+        'Chữa Lành Huyền Bí': 'filter-healing'
+      };
+      Object.entries(mapIds).forEach(([key, id]) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        if (key === filterVal) {
+          btn.className = 'filter-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gold-400 text-abyss transition';
+        } else {
+          btn.className = 'filter-pill px-3.5 py-1.5 rounded-xl text-xs font-medium bg-obsidian text-slate-300 hover:text-gold-300 border border-slate-700 transition';
+        }
+      });
+      renderStoryGrid();
+    }
+
+    function getTotalReactions(story) {
+      const r = story.reactions || {};
+      return (r.fire || 0) + (r.heart || 0) + (r.tear || 0) + (r.shock || 0) + (r.brain || 0) + (r.sword || 0);
+    }
+
+    function renderStoryGrid() {
+      const container = document.getElementById('storyGridContainer');
+      if (!container) return;
+
+      const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
+      const sortBy = document.getElementById('sortSelect')?.value || 'votes';
+
+      let list = state.stories.filter(s => s.status === 'approved');
+      if (state.filterType === 'novel') list = list.filter(s => s.format === 'novel');
+      else if (state.filterType === 'comic') list = list.filter(s => s.format === 'comic');
+      else if (state.filterType !== 'all') list = list.filter(s => s.genre === state.filterType);
+
+      if (query) {
+        list = list.filter(s =>
+          s.title.toLowerCase().includes(query) ||
+          s.author.toLowerCase().includes(query) ||
+          s.genre.toLowerCase().includes(query)
+        );
+      }
+
+      if (sortBy === 'votes') list.sort((a, b) => b.votes - a.votes);
+      else if (sortBy === 'views') list.sort((a, b) => b.views - a.views);
+      else if (sortBy === 'reactions') list.sort((a, b) => getTotalReactions(b) - getTotalReactions(a));
+      else if (sortBy === 'newest') list.sort((a, b) => b.id - a.id);
+
+      const countEl = document.getElementById('storyCountLabel');
+      if (countEl) countEl.textContent = `(${list.length} bộ truyện)`;
+
+      const sortedGlobal = [...state.stories].sort((a, b) => b.votes - a.votes);
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-2 glass-card rounded-2xl p-8 text-center space-y-2">
+            <div class="text-3xl">🔮</div>
+            <p class="text-sm font-semibold text-slate-200">Không tìm thấy tác phẩm phù hợp với bộ lọc hiện tại</p>
+            <button type="button" onclick="setFilterType('all')" class="text-xs text-gold-400 underline">Xem lại tất cả truyện</button>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(story => {
+        const rank = sortedGlobal.findIndex(item => item.id === story.id) + 1;
+        const totalReact = getTotalReactions(story);
+        const isBookmarked = state.bookmarks.includes(story.id);
+        return `
+          <div class="glass-card rounded-2xl p-4 flex gap-4 transition duration-200 relative group">
+            <!-- Cover Thumbnail -->
+            <div onclick="openReader(${story.id}, 0)" class="w-28 sm:w-32 h-44 rounded-xl overflow-hidden border border-gold-400/40 shrink-0 cursor-pointer relative shadow-lg">
+              ${getCoverSvgArt(story.coverPreset, story.title, story.customCover)}
+              <span class="absolute top-1.5 left-1.5 px-2 py-0.5 rounded text-[10px] font-bold ${rank <= 3 ? 'bg-gold-400 text-abyss' : 'bg-abyss/90 text-gold-300 border border-gold-400/30'}">
+                TOP #${rank}
+              </span>
+              <span class="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded text-[9px] font-semibold ${story.format === 'comic' ? 'bg-arcane-600/90 text-white' : 'bg-obsidian/90 text-gold-300'}">
+                ${story.format === 'comic' ? '🎨 Truyện Tranh' : '📖 Tiểu Thuyết'}
+              </span>
+            </div>
+
+            <!-- Story Metadata -->
+            <div class="flex-1 flex flex-col justify-between min-w-0">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between gap-1">
+                  <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800 text-gold-300 font-semibold">${story.genre}</span>
+                  <button type="button" onclick="toggleBookmarkById(${story.id})" title="Lưu vào Tủ sách" class="text-xs ${isBookmarked ? 'text-gold-400' : 'text-slate-500 hover:text-gold-300'}">
+                    ${isBookmarked ? '🔖 Đã lưu' : '🔖 Lưu'}
+                  </button>
+                </div>
+                <h3 onclick="openReader(${story.id}, 0)" class="font-fantasy font-bold text-sm sm:text-base text-white hover:text-gold-300 cursor-pointer line-clamp-2 leading-snug">
+                  ${story.title}
+                </h3>
+                <p class="text-xs text-slate-400 flex items-center gap-1">
+                  <span>${story.format === 'comic' ? '🎨' : '✍️'}</span>
+                  <span class="truncate">${story.author}</span>
+                  <span class="text-emerald-400" title="Tác giả đã xác thực Gmail">✔</span>
+                </p>
+                <p class="text-xs text-slate-300 line-clamp-2 leading-relaxed">${story.synopsis}</p>
+              </div>
+
+              <div class="pt-3 mt-2 border-t border-slate-800/90 space-y-2">
+                <div class="flex items-center justify-between text-[11px] text-slate-300">
+                  <span class="text-gold-300 font-semibold">🎫 ${story.votes.toLocaleString('vi-VN')} phiếu</span>
+                  <span>💖 ${totalReact} cảm xúc</span>
+                  <span>📑 ${story.chapters.length} chương</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button type="button" onclick="openReader(${story.id}, 0)" class="btn-gold flex-1 py-1.5 rounded-lg text-xs text-center">
+                    Đọc Truyện
+                  </button>
+                  <button type="button" onclick="openVoteModal(${story.id})" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-arcane-500/20 text-arcane-300 border border-arcane-400/40 hover:bg-arcane-500/35 transition">
+                    🎫 Vote Top
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // --- Mini Leaderboard & Live Activity Feed ---
+    function renderMiniLeaderboard() {
+      const box = document.getElementById('miniLeaderboardList');
+      if (!box) return;
+      const sorted = [...state.stories].filter(s => s.status === 'approved').sort((a, b) => b.votes - a.votes);
+      box.innerHTML = sorted.slice(0, 5).map((story, idx) => {
+        const medals = ['🥇', '🥈', '🥉', '4', '5'];
+        const badgeStyles = [
+          'bg-gold-400 text-abyss font-extrabold',
+          'bg-slate-300 text-abyss font-bold',
+          'bg-amber-600 text-white font-bold',
+          'bg-obsidian text-slate-400 border border-slate-700',
+          'bg-obsidian text-slate-400 border border-slate-700'
+        ];
+        return `
+          <div class="p-2.5 rounded-xl bg-abyss/75 border border-slate-800/90 hover:border-gold-400/40 flex items-center justify-between gap-2.5 transition">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs shrink-0 ${badgeStyles[idx]}">${medals[idx]}</span>
+              <div class="min-w-0">
+                <button type="button" onclick="openReader(${story.id}, 0)" class="text-xs font-bold text-white hover:text-gold-300 truncate block text-left max-w-[180px]">
+                  ${story.title}
+                </button>
+                <div class="text-[10px] text-slate-400 flex items-center gap-1.5">
+                  <span>${story.author}</span>
+                  <span>•</span>
+                  <span class="text-gold-300 font-semibold">${story.votes.toLocaleString('vi-VN')} 🎫</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" onclick="openVoteModal(${story.id})" class="px-2 py-1 rounded-lg text-[10px] font-bold bg-gold-400/15 text-gold-300 border border-gold-400/30 hover:bg-gold-400 hover:text-abyss transition shrink-0">
+              +Vote
+            </button>
+          </div>`;
+      }).join('');
+    }
+
+    function renderActivityFeed() {
+      const feed = document.getElementById('liveActivityFeed');
+      if (!feed) return;
+      feed.innerHTML = state.activities.map(item => `
+        <div class="p-2.5 rounded-lg bg-abyss/70 border border-slate-800/80 text-slate-300 leading-snug">
+          ${item}
+        </div>
+      `).join('');
+    }
+
+    function pushActivity(htmlText) {
+      state.activities.unshift(htmlText);
+      if (state.activities.length > 12) state.activities.pop();
+      renderActivityFeed();
+    }
+
+    // --- Full Leaderboard Tab ---
+    function setRankingCriteria(criteria) {
+      state.rankingCriteria = criteria;
+      ['votes', 'reactions', 'views'].forEach(c => {
+        const btn = document.getElementById(`ranktab-${c}`);
+        if (!btn) return;
+        if (c === criteria) {
+          btn.className = 'rank-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-gold-400 text-abyss';
+        } else {
+          btn.className = 'rank-tab-btn px-4 py-2 rounded-xl text-xs font-medium bg-obsidian text-slate-300 border border-slate-700';
+        }
+      });
+      renderFullRanking();
+    }
+
+    function renderFullRanking() {
+      const container = document.getElementById('fullRankingContainer');
+      if (!container) return;
+      let sorted = [...state.stories].filter(s => s.status === 'approved');
+      if (state.rankingCriteria === 'votes') sorted.sort((a, b) => b.votes - a.votes);
+      else if (state.rankingCriteria === 'reactions') sorted.sort((a, b) => getTotalReactions(b) - getTotalReactions(a));
+      else sorted.sort((a, b) => b.views - a.views);
+
+      container.innerHTML = sorted.map((story, idx) => {
+        const rank = idx + 1;
+        const totalReact = getTotalReactions(story);
+        return `
+          <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border ${rank === 1 ? 'border-gold-400/70' : 'border-slate-800'}">
+            <div class="flex items-center gap-4 min-w-0">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center font-fantasy font-extrabold text-lg shrink-0 ${rank === 1 ? 'bg-gold-400 text-abyss shadow-lg shadow-gold-400/30' : rank === 2 ? 'bg-slate-300 text-abyss' : rank === 3 ? 'bg-amber-600 text-white' : 'bg-obsidian text-slate-400 border border-slate-700'}">
+                #${rank}
+              </div>
+              <div onclick="openReader(${story.id}, 0)" class="w-16 h-22 rounded-lg overflow-hidden border border-gold-400/30 shrink-0 cursor-pointer hidden sm:block">
+                ${getCoverSvgArt(story.coverPreset, story.title, story.customCover)}
+              </div>
+              <div class="space-y-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold ${story.format === 'comic' ? 'bg-arcane-500/30 text-arcane-300' : 'bg-gold-400/15 text-gold-300'}">
+                    ${story.format === 'comic' ? '🎨 Truyện Tranh Hoạ Sĩ' : '📖 Tiểu Thuyết'}
+                  </span>
+                  <span class="text-xs text-slate-400">${story.genre}</span>
+                </div>
+                <h3 onclick="openReader(${story.id}, 0)" class="font-fantasy text-base sm:text-lg font-bold text-white hover:text-gold-300 cursor-pointer truncate">
+                  ${story.title}
+                </h3>
+                <p class="text-xs text-slate-400">Sáng tác: <strong class="text-slate-200">${story.author}</strong> • ${story.chapters.length} chương</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-800">
+              <div class="text-left sm:text-right">
+                <div class="text-sm font-bold text-gold-300">🎫 ${story.votes.toLocaleString('vi-VN')} Nguyệt Phiếu</div>
+                <div class="text-[11px] text-slate-400">💖 ${totalReact} Cảm xúc • 👁️ ${story.views.toLocaleString('vi-VN')} đọc</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="openVoteModal(${story.id})" class="btn-gold px-4 py-2 rounded-xl text-xs">
+                  🎫 Vote Lên Top
+                </button>
+                <button type="button" onclick="openReader(${story.id}, 0)" class="px-3.5 py-2 rounded-xl text-xs bg-obsidian hover:bg-sanctum text-slate-200 border border-slate-700">
+                  Đọc
+                </button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // --- Voting Modal & Logic ---
+    function openVoteModal(storyId) {
+      const story = state.stories.find(s => s.id === storyId);
+      if (!story) return;
+      state.selectedVoteStoryId = storyId;
+      state.selectedVoteAmount = 1;
+      document.getElementById('voteModalStoryName').textContent = story.title;
+      document.getElementById('voteModalUserTickets').textContent = state.user.tickets;
+      selectVoteAmount(1);
+      document.getElementById('voteModal').classList.remove('hidden');
+    }
+
+    function closeVoteModal() {
+      document.getElementById('voteModal').classList.add('hidden');
+    }
+
+    function selectVoteAmount(amt) {
+      state.selectedVoteAmount = amt;
+      [1, 3, 5].forEach(n => {
+        const btn = document.getElementById(`voteAmtBtn-${n}`);
+        if (!btn) return;
+        if (n === amt) {
+          btn.className = 'vote-amt-btn p-3 rounded-xl border-2 border-gold-400 bg-gold-400/20 text-center';
+        } else {
+          btn.className = 'vote-amt-btn p-3 rounded-xl border border-slate-700 bg-abyss text-center';
+        }
+      });
+    }
+
+    function confirmCastVote() {
+      const amt = state.selectedVoteAmount;
+      if (state.user.tickets < amt) {
+        showToast('Bạn không đủ Nguyệt Phiếu! Hãy vào mục Điểm Danh Tinh Tú để nhận thêm phiếu miễn phí.', 'warning');
+        return;
+      }
+      const story = state.stories.find(s => s.id === state.selectedVoteStoryId);
+      if (!story) return;
+
+      state.user.tickets -= amt;
+      story.votes += amt * 100; // Each ticket boosts leaderboard visibility clearly
+      state.user.exp += amt * 15;
+
+      // Mark quest q4 done
+      const q4 = state.quests.find(q => q.id === 'q4');
+      if (q4) q4.done = true;
+
+      const msg = (document.getElementById('voteCheerMessage')?.value || '').trim();
+      pushActivity(`🎫 <strong>${state.user.name}</strong> vừa bầu chọn <strong>${amt} Nguyệt Phiếu (+${amt * 100} điểm)</strong> cho <em>${story.title}</em>: "${msg}"`);
+
+      saveStateToStorage('aetheris_stories_v1', state.stories);
+      playFantasySound('vote');
+      closeVoteModal();
+      updateHeaderUI();
+      renderHero();
+      renderStoryGrid();
+      renderMiniLeaderboard();
+      renderFullRanking();
+      showToast(`🎉 Đã bầu chọn ${amt} Nguyệt Phiếu cho "${story.title}"! Thứ hạng đã được cập nhật trực tiếp.`, 'success');
+    }
+
+    // --- Daily Check-in & Star Chest Gacha ---
+    const checkinRewardsConfig = [
+      { day: 1, title: 'Ngày 1 • Sao Khởi Nguyên', crystals: 50, tickets: 1, icon: '✨' },
+      { day: 2, title: 'Ngày 2 • Sao Bạch Dương', crystals: 70, tickets: 1, icon: '🌙' },
+      { day: 3, title: 'Ngày 3 • Sao Song Tử', crystals: 100, tickets: 2, icon: '🔮' },
+      { day: 4, title: 'Ngày 4 • Sao Bắc Đẩu', crystals: 120, tickets: 2, icon: '💎' },
+      { day: 5, title: 'Ngày 5 • Sao Thiên Ưng', crystals: 150, tickets: 3, icon: '🎫' },
+      { day: 6, title: 'Ngày 6 • Sao Phượng Hoàng', crystals: 200, tickets: 3, icon: '🔥' },
+      { day: 7, title: 'Ngày 7 • Rương Thần Thoại', crystals: 350, tickets: 5, icon: '👑' }
+    ];
+
+    function renderCheckinAltar() {
+      document.getElementById('checkinStreakCount').textContent = state.user.checkinStreak;
+      const nextDayNum = (state.user.checkinStreak % 7) + 1;
+      const btnText = document.getElementById('mainCheckinBtnText');
+      const mainBtn = document.getElementById('mainCheckinActionBtn');
+
+      if (state.user.checkedInToday) {
+        btnText.textContent = `✔ Đã Điểm Danh Ngày ${state.user.checkinStreak} (Hẹn Ngày Mai)`;
+        mainBtn.classList.add('opacity-70');
+      } else {
+        btnText.textContent = `Điểm Danh Hôm Nay (Nhận Quà Ngày ${nextDayNum})`;
+        mainBtn.classList.remove('opacity-70');
+      }
+
+      const grid = document.getElementById('checkinDaysGrid');
+      if (!grid) return;
+      grid.innerHTML = checkinRewardsConfig.map(r => {
+        const isClaimed = r.day <= state.user.checkinStreak;
+        const isCurrentTarget = !state.user.checkedInToday && r.day === nextDayNum;
+        return `
+          <div class="p-3.5 rounded-2xl border text-center flex flex-col items-center justify-between gap-2 transition ${
+            isClaimed
+              ? 'bg-emerald-950/30 border-emerald-400/50 text-emerald-200'
+              : isCurrentTarget
+              ? 'bg-gold-400/15 border-2 border-gold-400 shadow-lg shadow-gold-400/20'
+              : 'bg-abyss/80 border-slate-800 text-slate-400'
+          }">
+            <span class="text-[11px] font-bold uppercase tracking-wider">${r.title.split('•')[0]}</span>
+            <div class="w-11 h-11 rounded-full bg-obsidian border border-current/25 flex items-center justify-center text-2xl">
+              ${isClaimed ? '✔' : r.icon}
+            </div>
+            <div class="space-y-0.5">
+              <div class="text-xs font-bold text-aether-400">+${r.crystals} 💎</div>
+              <div class="text-xs font-bold text-gold-300">+${r.tickets} 🎫</div>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded-full ${isClaimed ? 'bg-emerald-500/20 text-emerald-300' : isCurrentTarget ? 'bg-gold-400 text-abyss font-bold' : 'bg-slate-800 text-slate-400'}">
+              ${isClaimed ? 'Đã nhận' : isCurrentTarget ? 'Hôm nay' : 'Sắp tới'}
+            </span>
+          </div>`;
+      }).join('');
+    }
+
+    function performDailyCheckin() {
+      if (state.user.checkedInToday) {
+        showToast('Bạn đã điểm danh hôm nay rồi! Có thể bấm "Mô phỏng sang ngày tiếp theo" để test chuỗi 7 ngày.', 'info');
+        return;
+      }
+      state.user.checkinStreak = (state.user.checkinStreak % 7) + 1;
+      state.user.checkedInToday = true;
+
+      const reward = checkinRewardsConfig.find(r => r.day === state.user.checkinStreak) || checkinRewardsConfig[0];
+      state.user.crystals += reward.crystals;
+      state.user.tickets += reward.tickets;
+      state.user.exp += 40;
+
+      const q1 = state.quests.find(q => q.id === 'q1');
+      if (q1) q1.done = true;
+
+      playFantasySound('chime');
+      pushActivity(`🌟 <strong>${state.user.name}</strong> điểm danh <em>${reward.title}</em> nhận <strong>+${reward.crystals} 💎</strong> & <strong>+${reward.tickets} 🎫</strong>`);
+      updateHeaderUI();
+      renderCheckinAltar();
+      renderDailyQuests();
+      showToast(`🎁 Điểm danh Ngày ${state.user.checkinStreak} thành công! Nhận +${reward.crystals} Linh Thạch & +${reward.tickets} Nguyệt Phiếu!`, 'success');
+    }
+
+    function simulateNextDayCheckin() {
+      state.user.checkedInToday = false;
+      if (state.user.checkinStreak >= 7) state.user.checkinStreak = 0;
+      updateHeaderUI();
+      renderCheckinAltar();
+      showToast('⏩ Đã tua sang ngày mới! Hãy nhấn "Điểm Danh Hôm Nay" để nhận mốc thưởng tiếp theo.', 'info');
+    }
+
+    function spinStarChest() {
+      if (state.user.crystals < 100) {
+        showToast('Cần 100 Linh Thạch để mở Rương Tinh Tú! Hãy điểm danh hoặc làm nhiệm vụ nhé.', 'warning');
+        return;
+      }
+      state.user.crystals -= 100;
+      const prizes = [
+        { label: '🎉 Đại Cát Tinh Vân! Trúng +3 Nguyệt Phiếu & +80 EXP!', crystals: 0, tickets: 3, exp: 80 },
+        { label: '💎 Phượng Hoàng Chúc Phúc! Nhận lại 220 Linh Thạch & +1 Nguyệt Phiếu!', crystals: 220, tickets: 1, exp: 40 },
+        { label: '👑 Thần Thoại Giáng Lâm! Nhận +5 Nguyệt Phiếu bầu chọn Top & +120 EXP!', crystals: 50, tickets: 5, exp: 120 }
+      ];
+      const pick = prizes[Math.floor(Math.random() * prizes.length)];
+      state.user.crystals += pick.crystals;
+      state.user.tickets += pick.tickets;
+      state.user.exp += pick.exp;
+
+      const box = document.getElementById('gachaResultBox');
+      if (box) {
+        box.innerHTML = `<span class="text-2xl mb-1 animate-bounce">👑</span><p class="text-xs font-bold text-gold-300">${pick.label}</p>`;
+      }
+      playFantasySound('chime');
+      updateHeaderUI();
+      showToast(pick.label, 'success');
+    }
+
+    function renderDailyQuests() {
+      const list = document.getElementById('dailyQuestsList');
+      if (!list) return;
+      list.innerHTML = state.quests.map(q => `
+        <div class="p-3.5 rounded-xl bg-abyss/80 border border-slate-800 flex items-center justify-between gap-3">
+          <div>
+            <div class="text-xs font-semibold text-white flex items-center gap-2">
+              <span>${q.done ? '✅' : '⭕'}</span>
+              <span>${q.title}</span>
+            </div>
+            <div class="text-[11px] text-slate-400 mt-0.5">
+              Phần thưởng: <span class="text-aether-400 font-bold">+${q.rewardCrystals} 💎</span> & <span class="text-gold-300 font-bold">+${q.rewardTickets} 🎫</span>
+            </div>
+          </div>
+          ${
+            q.claimed
+              ? `<span class="px-3 py-1.5 rounded-lg text-xs bg-emerald-500/20 text-emerald-300 font-semibold">Đã Nhận</span>`
+              : q.done
+              ? `<button type="button" onclick="claimQuestReward('${q.id}')" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs">Nhận Thưởng</button>`
+              : `<span class="px-3 py-1.5 rounded-lg text-[11px] bg-obsidian text-slate-400 border border-slate-700">Chưa hoàn thành</span>`
+          }
+        </div>
+      `).join('');
+    }
+
+    function claimQuestReward(questId) {
+      const q = state.quests.find(item => item.id === questId);
+      if (!q || !q.done || q.claimed) return;
+      q.claimed = true;
+      state.user.crystals += q.rewardCrystals;
+      state.user.tickets += q.rewardTickets;
+      state.user.exp += 30;
+      playFantasySound('chime');
+      updateHeaderUI();
+      renderDailyQuests();
+      showToast(`Đã nhận thưởng nhiệm vụ: +${q.rewardCrystals} 💎 & +${q.rewardTickets} 🎫!`, 'success');
+    }
+
+    // --- Reader View, Reactions & Comments ---
+    const reactionTypes = [
+      { key: 'fire', emoji: '🔥', label: 'Bùng Cháy' },
+      { key: 'heart', emoji: '💖', label: 'Tuyệt Mỹ' },
+      { key: 'tear', emoji: '😭', label: 'Cảm Động' },
+      { key: 'shock', emoji: '😱', label: 'Gay Cấn' },
+      { key: 'brain', emoji: '🧠', label: 'Đỉnh Cao' },
+      { key: 'sword', emoji: '⚔️', label: 'Nhiệt Huyết' }
+    ];
+
+    function openReader(storyId, chapterIdx = 0) {
+      const story = state.stories.find(s => s.id === storyId);
+      if (!story) return;
+      state.currentStoryId = storyId;
+      state.currentChapterIdx = Math.max(0, Math.min(chapterIdx, story.chapters.length - 1));
+      story.views += 1;
+
+      switchTab('reader');
+      renderReaderContent();
+      playFantasySound('page');
+    }
+
+    function renderReaderContent() {
+      const story = state.stories.find(s => s.id === state.currentStoryId);
+      if (!story) return;
+      const chap = story.chapters[state.currentChapterIdx] || story.chapters[0];
+
+      document.getElementById('readerStoryTitle').textContent = story.title;
+      document.getElementById('readerFormatBadge').textContent =
+        story.format === 'comic' ? '🎨 Truyện Tranh Hoạ Sĩ' : '📖 Tiểu Thuyết Chữ';
+      document.getElementById('readerAuthorLabel').textContent =
+        `${story.format === 'comic' ? 'Hoạ sĩ:' : 'Tác giả:'} ${story.author} (${story.authorEmail})`;
+
+      // Populate chapter select dropdown
+      const select = document.getElementById('readerChapterSelect');
+      select.innerHTML = story.chapters.map((c, idx) =>
+        `<option value="${idx}" ${idx === state.currentChapterIdx ? 'selected' : ''}>${c.title}</option>`
+      ).join('');
+
+      document.getElementById('readerChapterOrderTag').textContent =
+        `TÁC PHẨM: ${story.genre.toUpperCase()} • CHƯƠNG ${state.currentChapterIdx + 1}/${story.chapters.length}`;
+      document.getElementById('readerChapterHeading').textContent = chap.title;
+      document.getElementById('readerWordCountInfo').textContent = `📜 ${chap.wordCount || 850} chữ`;
+      document.getElementById('readerViewsInfo').textContent = `👁️ ${story.views.toLocaleString('vi-VN')} lượt đọc`;
+
+      const isBookmarked = state.bookmarks.includes(story.id);
+      document.getElementById('readerBookmarkText').textContent = isBookmarked ? 'Đã Lưu Tủ Sách' : 'Lưu Tủ Sách';
+
+      // Render Comic Panels (if comic) + Narrative Paragraphs
+      const bodyEl = document.getElementById('readerBodyContent');
+      bodyEl.style.fontSize = `${state.readerFontSize}px`;
+
+      let html = '';
+      if (chap.panels && chap.panels.length > 0) {
+        html += `<div class="space-y-6 mb-6">` + chap.panels.map(p => renderComicPanelArtwork(p)).join('') + `</div>`;
+      }
+      if (chap.paragraphs && chap.paragraphs.length > 0) {
+        html += chap.paragraphs.map((p, idx) =>
+          `<p class="leading-relaxed ${idx === 0 ? 'first-letter:text-4xl first-letter:font-fantasy first-letter:font-bold first-letter:text-gold-400 first-letter:mr-2 first-letter:float-left' : ''}">${p}</p>`
+        ).join('');
+      }
+      bodyEl.innerHTML = html;
+
+      renderReaderReactions(story);
+      renderReaderComments(story.id);
+    }
+
+    function navigateChapter(delta) {
+      const story = state.stories.find(s => s.id === state.currentStoryId);
+      if (!story) return;
+      const nextIdx = state.currentChapterIdx + delta;
+      if (nextIdx < 0) {
+        showToast('Bạn đang ở chương đầu tiên của bộ truyện.', 'info');
+        return;
+      }
+      if (nextIdx >= story.chapters.length) {
+        showToast('Bạn đã đọc hết chương mới nhất! Hãy thả cảm xúc hoặc Vote Nguyệt Phiếu cổ vũ tác giả ra chương mới nhé.', 'info');
+        return;
+      }
+      state.currentChapterIdx = nextIdx;
+      renderReaderContent();
+      playFantasySound('page');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function onSelectChapterDropdown(val) {
+      state.currentChapterIdx = parseInt(val, 10) || 0;
+      renderReaderContent();
+      playFantasySound('page');
+    }
+
+    function changeReaderFontSize(delta) {
+      state.readerFontSize = Math.max(14, Math.min(26, state.readerFontSize + delta));
+      const bodyEl = document.getElementById('readerBodyContent');
+      if (bodyEl) bodyEl.style.fontSize = `${state.readerFontSize}px`;
+    }
+
+    function setReaderTheme(themeKey) {
+      state.readerTheme = themeKey;
+      const box = document.getElementById('readerCanvasBox');
+      if (!box) return;
+      box.className = `reader-theme-${themeKey} max-w-4xl mx-auto rounded-2xl p-6 sm:p-12 border shadow-2xl transition-colors duration-200`;
+    }
+
+    function renderReaderReactions(story) {
+      const bar = document.getElementById('readerReactionsBar');
+      if (!bar) return;
+      if (!story.reactions) story.reactions = { fire: 10, heart: 10, tear: 5, shock: 5, brain: 5, sword: 10 };
+
+      bar.innerHTML = reactionTypes.map(rt => {
+        const count = story.reactions[rt.key] || 0;
+        const userClickedKey = `${story.id}_${rt.key}`;
+        const active = !!state.userReactionHistory[userClickedKey];
+        return `
+          <button type="button" onclick="triggerStoryReaction('${rt.key}')" class="p-3 rounded-xl border transition flex flex-col items-center gap-1 ${
+            active
+              ? 'bg-gold-400/20 border-gold-400 text-gold-300 scale-105'
+              : 'bg-abyss/80 border-slate-800 hover:border-gold-400/50 text-slate-200'
+          }">
+            <span class="text-2xl">${rt.emoji}</span>
+            <span class="text-xs font-semibold">${rt.label}</span>
+            <span class="text-xs font-bold text-gold-400">${count}</span>
+          </button>`;
+      }).join('');
+    }
+
+    function triggerStoryReaction(rKey) {
+      const story = state.stories.find(s => s.id === state.currentStoryId);
+      if (!story) return;
+      const userClickedKey = `${story.id}_${rKey}`;
+      story.reactions[rKey] = (story.reactions[rKey] || 0) + 1;
+      state.userReactionHistory[userClickedKey] = true;
+      state.user.exp += 5;
+
+      const q2 = state.quests.find(q => q.id === 'q2');
+      if (q2) q2.done = true;
+
+      const rtObj = reactionTypes.find(r => r.key === rKey);
+      pushActivity(`${rtObj.emoji} <strong>${state.user.name}</strong> đã thả cảm xúc <em>${rtObj.label}</em> cho <em>${story.title}</em>`);
+
+      saveStateToStorage('aetheris_stories_v1', state.stories);
+      playFantasySound('chime');
+      updateHeaderUI();
+      renderReaderReactions(story);
+      showToast(`${rtObj.emoji} Đã thả cảm xúc "${rtObj.label}" (+5 EXP)!`, 'success');
+    }
+
+    function tipAuthorCrystals() {
+      if (state.user.crystals < 50) {
+        showToast('Bạn cần tối thiểu 50 Linh Thạch để thưởng cho Tác giả / Hoạ sĩ!', 'warning');
+        return;
+      }
+      const story = state.stories.find(s => s.id === state.currentStoryId);
+      if (!story) return;
+      state.user.crystals -= 50;
+      story.votes += 25;
+      state.user.exp += 20;
+      playFantasySound('chime');
+      pushActivity(`💎 <strong>${state.user.name}</strong> vừa thưởng nóng <strong>50 Linh Thạch</strong> cho tác giả <em>${story.author}</em>!`);
+      updateHeaderUI();
+      showToast(`💎 Đã gửi tặng 50 Linh Thạch tới ${story.author}! Cảm ơn bạn đã ủng hộ người sáng tác.`, 'success');
+    }
+
+    function renderReaderComments(storyId) {
+      const commentingAs = document.getElementById('commentingAsLabel');
+      if (commentingAs) commentingAs.textContent = `Đang bình luận: ${state.user.name} (${state.user.email})`;
+
+      const listEl = document.getElementById('readerCommentsList');
+      const countEl = document.getElementById('readerCommentCount');
+      if (!listEl) return;
+
+      const storyComments = state.comments.filter(c => c.storyId === storyId && !c.reported);
+      if (countEl) countEl.textContent = storyComments.length;
+
+      if (storyComments.length === 0) {
+        listEl.innerHTML = `<div class="p-6 text-center text-xs text-slate-400">Chưa có bình luận nào cho tác phẩm này. Hãy là người đầu tiên khai mở thảo luận!</div>`;
+        return;
+      }
+
+      listEl.innerHTML = storyComments.map(c => `
+        <div class="p-4 rounded-xl bg-abyss/75 border border-slate-800/90 space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-full bg-gold-400/20 border border-gold-400/40 flex items-center justify-center text-xs font-bold text-gold-300">
+                ${c.user.charAt(0).toUpperCase()}
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>${c.user}</span>
+                  <span class="text-emerald-400 text-[10px]" title="Đã xác thực Gmail">✔ Gmail</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] bg-arcane-500/20 text-arcane-300 border border-arcane-400/30">${c.mood}</span>
+                </div>
+                <div class="text-[10px] text-slate-400">${c.time}</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="likeComment(${c.id})" class="px-2.5 py-1 rounded-lg bg-obsidian border border-slate-700 hover:border-gold-400 text-xs text-slate-300 flex items-center gap-1">
+                <span>👍</span><span>${c.likes}</span>
+              </button>
+              <button type="button" onclick="reportCommentToAdmin(${c.id})" title="Báo cáo bình luận vi phạm cho Admin" class="px-2 py-1 rounded-lg bg-obsidian border border-slate-700 hover:border-rose-400 text-[11px] text-slate-400 hover:text-rose-300">
+                🚩 Báo cáo
+              </button>
+            </div>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-200 leading-relaxed pl-9">${c.text}</p>
+        </div>
+      `).join('');
+    }
+
+    function postNewComment() {
+      const input = document.getElementById('commentInputBox');
+      const mood = document.getElementById('commentMoodSelect')?.value || '🔥 Bùng Cháy';
+      const text = (input?.value || '').trim();
+      if (!text) {
+        showToast('Vui lòng nhập nội dung bình luận trước khi gửi!', 'warning');
+        return;
+      }
+      const newC = {
+        id: Date.now(),
+        storyId: state.currentStoryId,
+        chapterIdx: state.currentChapterIdx,
+        user: state.user.name,
+        email: state.user.email,
+        mood: mood,
+        text: text,
+        time: 'Vừa xong',
+        likes: 1,
+        reported: false
+      };
+      state.comments.unshift(newC);
+      state.user.exp += 10;
+
+      const q3 = state.quests.find(q => q.id === 'q3');
+      if (q3) q3.done = true;
+
+      input.value = '';
+      saveStateToStorage('aetheris_comments_v1', state.comments);
+      playFantasySound('chime');
+      updateHeaderUI();
+      renderReaderComments(state.currentStoryId);
+      showToast('💬 Đã đăng bình luận thành công (+10 EXP)!', 'success');
+    }
+
+    function likeComment(commentId) {
+      const c = state.comments.find(item => item.id === commentId);
+      if (!c) return;
+      c.likes += 1;
+      saveStateToStorage('aetheris_comments_v1', state.comments);
+      renderReaderComments(state.currentStoryId);
+    }
+
+    function reportCommentToAdmin(commentId) {
+      const c = state.comments.find(item => item.id === commentId);
+      if (!c) return;
+      c.reported = true;
+      c.reportReason = 'Độc giả báo cáo nội dung cần kiểm duyệt';
+      saveStateToStorage('aetheris_comments_v1', state.comments);
+      renderReaderComments(state.currentStoryId);
+      showToast('🚩 Đã gửi báo cáo bình luận tới Pháp Đình Admin để kiểm duyệt.', 'info');
+    }
+
+    // --- Bookmarks & Personal Library ---
+    function toggleBookmarkById(storyId) {
+      const idx = state.bookmarks.indexOf(storyId);
+      if (idx >= 0) {
+        state.bookmarks.splice(idx, 1);
+        showToast('Đã xoá truyện khỏi Tủ sách cá nhân.', 'info');
+      } else {
+        state.bookmarks.push(storyId);
+        showToast('🔖 Đã lưu truyện vào Tủ sách cá nhân!', 'success');
+      }
+      renderStoryGrid();
+      if (state.activeTab === 'library') renderLibrary();
+      if (state.activeTab === 'reader') renderReaderContent();
+    }
+
+    function toggleBookmarkCurrentStory() {
+      toggleBookmarkById(state.currentStoryId);
+    }
+
+    function renderLibrary() {
+      const grid = document.getElementById('libraryGridContainer');
+      if (!grid) return;
+      const saved = state.stories.filter(s => state.bookmarks.includes(s.id));
+      if (saved.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-3 glass-card rounded-2xl p-8 text-center space-y-3">
+            <div class="text-3xl">📚</div>
+            <p class="text-sm text-slate-300">Tủ sách của bạn đang trống. Hãy lưu các bộ truyện yêu thích để đọc tiếp bất cứ lúc nào!</p>
+            <button type="button" onclick="switchTab('home')" class="btn-gold px-4 py-2 rounded-xl text-xs">Khám Phá Kho Truyện</button>
+          </div>`;
+        return;
+      }
+      grid.innerHTML = saved.map(story => `
+        <div class="glass-card rounded-2xl p-4 flex gap-4">
+          <div onclick="openReader(${story.id}, 0)" class="w-24 h-36 rounded-xl overflow-hidden border border-gold-400/40 shrink-0 cursor-pointer">
+            ${getCoverSvgArt(story.coverPreset, story.title, story.customCover)}
+          </div>
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-gold-400/15 text-gold-300 font-semibold">${story.genre}</span>
+              <h3 onclick="openReader(${story.id}, 0)" class="font-fantasy font-bold text-sm text-white hover:text-gold-300 cursor-pointer mt-1 line-clamp-2">${story.title}</h3>
+              <p class="text-xs text-slate-400 mt-0.5">${story.author} • ${story.chapters.length} chương</p>
+            </div>
+            <div class="flex items-center gap-2 pt-2">
+              <button type="button" onclick="openReader(${story.id}, 0)" class="btn-gold flex-1 py-1.5 rounded-lg text-xs">Đọc Tiếp</button>
+              <button type="button" onclick="toggleBookmarkById(${story.id})" class="px-2.5 py-1.5 rounded-lg bg-obsidian border border-slate-700 text-xs text-rose-300">Bỏ lưu</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // --- Creator & Artist Studio ---
+    function switchStudioMode(mode) {
+      const newPane = document.getElementById('studioNewStoryPane');
+      const addPane = document.getElementById('studioAddChapterPane');
+      const btnNew = document.getElementById('studioBtnNewStory');
+      const btnAdd = document.getElementById('studioBtnAddChapter');
+
+      if (mode === 'newStory') {
+        newPane.classList.remove('hidden');
+        addPane.classList.add('hidden');
+        btnNew.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-gold-400 text-abyss';
+        btnAdd.className = 'px-4 py-2 rounded-xl text-xs font-medium bg-obsidian text-slate-200 border border-slate-700 hover:border-gold-400';
+      } else {
+        newPane.classList.add('hidden');
+        addPane.classList.remove('hidden');
+        btnAdd.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-gold-400 text-abyss';
+        btnNew.className = 'px-4 py-2 rounded-xl text-xs font-medium bg-obsidian text-slate-200 border border-slate-700 hover:border-gold-400';
+        populateExistingStorySelect();
+      }
+    }
+
+    function renderStudioView() {
+      updateStudioCoverPreview();
+      toggleStudioComicBuilder();
+      renderMySubmittedStories();
+      populateExistingStorySelect();
+    }
+
+    function updateStudioCoverPreview() {
+      const preset = document.getElementById('newStoryCoverPreset')?.value || 'dragon';
+      const title = document.getElementById('newStoryTitle')?.value || 'Tác Phẩm Mới';
+      const box = document.getElementById('studioCoverPreviewBox');
+      if (box) box.innerHTML = getCoverSvgArt(preset, title, state.customCoverBase64);
+    }
+
+    function handleCustomCoverUpload(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        state.customCoverBase64 = e.target.result;
+        updateStudioCoverPreview();
+        showToast('🎨 Đã tải lên ảnh bìa tác phẩm thành công!', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function toggleStudioComicBuilder() {
+      const fmt = document.getElementById('newStoryFormat')?.value || 'novel';
+      const builder = document.getElementById('studioComicBuilderBox');
+      if (!builder) return;
+      if (fmt === 'comic') {
+        builder.classList.remove('hidden');
+        renderComicPanelsDraftList();
+      } else {
+        builder.classList.add('hidden');
+      }
+    }
+
+    function renderComicPanelsDraftList() {
+      const container = document.getElementById('comicPanelsDraftContainer');
+      if (!container) return;
+      container.innerHTML = state.studioDraftPanels.map((p, idx) => `
+        <div class="p-3 rounded-xl bg-obsidian border border-slate-700 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-arcane-300">Khung Tranh #${idx + 1}</span>
+            ${state.studioDraftPanels.length > 1 ? `<button type="button" onclick="removeComicPanelDraft(${idx})" class="text-[11px] text-rose-400 hover:underline">Xoá khung</button>` : ''}
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <select onchange="updateDraftPanelField(${idx}, 'scene', this.value)" class="bg-abyss border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white">
+              <option value="dragon_hall" ${p.scene === 'dragon_hall' ? 'selected' : ''}>Bối cảnh: Đại Sảnh Rồng & Cổ Ngữ</option>
+              <option value="forbidden_library" ${p.scene === 'forbidden_library' ? 'selected' : ''}>Bối cảnh: Thư Viện Ma Thuật Cấm</option>
+              <option value="crimson_dawn" ${p.scene === 'crimson_dawn' ? 'selected' : ''}>Bối cảnh: Bình Minh Huyết Nguyệt</option>
+              <option value="yggdrasil_tree" ${p.scene === 'yggdrasil_tree' ? 'selected' : ''}>Bối cảnh: Đại Thụ Tinh Linh Yggdrasil</option>
+            </select>
+            <input type="text" value="${p.speaker}" oninput="updateDraftPanelField(${idx}, 'speaker', this.value)" placeholder="Tên nhân vật thoại..." class="bg-abyss border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white" />
+          </div>
+          <input type="text" value="${p.dialogue}" oninput="updateDraftPanelField(${idx}, 'dialogue', this.value)" placeholder="Lời thoại trong bong bóng..." class="w-full bg-abyss border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white" />
+        </div>
+      `).join('');
+    }
+
+    function addComicPanelDraft() {
+      state.studioDraftPanels.push({
+        scene: 'forbidden_library',
+        speaker: 'Pháp Sư Tinh Tú',
+        caption: `Khung Tranh ${state.studioDraftPanels.length + 1}`,
+        dialogue: 'Không gian này đang biến đổi theo từng nét vẽ!',
+        imageUrl: ''
+      });
+      renderComicPanelsDraftList();
+    }
+
+    function removeComicPanelDraft(idx) {
+      state.studioDraftPanels.splice(idx, 1);
+      renderComicPanelsDraftList();
+    }
+
+    function updateDraftPanelField(idx, field, val) {
+      if (state.studioDraftPanels[idx]) {
+        state.studioDraftPanels[idx][field] = val;
+      }
+    }
+
+    function fillSampleFantasyDraft() {
+      document.getElementById('newStoryTitle').value = 'Vương Quốc Trên Lưng Cá Voi Sao Băng';
+      document.getElementById('newStorySynopsis').value = 'Toàn bộ nền văn minh Lạc Tinh đều được xây dựng trên lưng một con Cá Voi Vũ Trụ bơi xuyên qua các chiều không gian. Khi Cá Voi chuẩn bị lặn xuống Biển Hư Không, thiếu nữ Người Nghe Gió phải tìm ra Khúc Hát Thức Tỉnh.';
+      document.getElementById('newStoryChapTitle').value = 'Chương 1: Nhịp Tim Dưới Đáy Đại Dương Mây';
+      document.getElementById('newStoryChapContent').value = 'Mỗi một trăm năm, đại lục Astral lại nghiêng đi mười lăm độ khi Cự Kình Vũ Trụ vẫy chiếc vây ánh sáng khổng lồ của nó.\n\nTại đài quan sát nằm ở chóp sừng pha lê của Cự Kình, Lyris áp tai xuống mặt đá lạnh buốt. Qua lớp vỏ địa chất dày hàng dặm, nàng nghe thấy một nhịp tim trầm hùng nhưng đang yếu dần — dấu hiệu cho thấy vị thần hộ mệnh của cả vương quốc vừa trúng phải Mũi Lao Bóng Tối từKỷ Nguyên Cũ...';
+      updateStudioCoverPreview();
+      showToast('✨ Đã điền mẫu bản thảo Kỳ Ảo! Bạn có thể chỉnh sửa thêm hoặc nhấn Gửi Đăng Tải ngay.', 'info');
+    }
+
+    function submitNewStoryFromStudio() {
+      const title = (document.getElementById('newStoryTitle')?.value || '').trim();
+      const author = (document.getElementById('newStoryAuthor')?.value || state.user.name).trim();
+      const format = document.getElementById('newStoryFormat')?.value || 'novel';
+      const genre = document.getElementById('newStoryGenre')?.value || 'Sử Thi Kỳ Ảo';
+      const coverPreset = document.getElementById('newStoryCoverPreset')?.value || 'dragon';
+      const synopsis = (document.getElementById('newStorySynopsis')?.value || '').trim();
+      const chapTitle = (document.getElementById('newStoryChapTitle')?.value || '').trim();
+      const chapContent = (document.getElementById('newStoryChapContent')?.value || '').trim();
+
+      if (!title || !synopsis || !chapTitle || !chapContent) {
+        showToast('Vui lòng điền đầy đủ Tên truyện, Tóm tắt, Tiêu đề chương và Nội dung chương (hoặc bấm nút "Chèn mẫu bản thảo Kỳ Ảo nhanh")!', 'warning');
+        return;
+      }
+
+      const paragraphs = chapContent.split(/\n+/).map(s => s.trim()).filter(Boolean);
+      const newSubmission = {
+        id: Date.now(),
+        title,
+        author,
+        authorEmail: state.user.email,
+        format,
+        genre,
+        coverPreset,
+        customCover: state.customCoverBase64 || null,
+        submittedAt: 'Vừa gửi xong',
+        synopsis,
+        votes: 250,
+        views: 120,
+        reactions: { fire: 12, heart: 18, tear: 2, shock: 6, brain: 8, sword: 10 },
+        chapters: [
+          {
+            title: chapTitle,
+            wordCount: chapContent.split(/\s+/).length,
+            panels: format === 'comic' ? JSON.parse(JSON.stringify(state.studioDraftPanels)) : [],
+            paragraphs
+          }
+        ]
+      };
+
+      state.pendingQueue.unshift(newSubmission);
+      saveStateToStorage('aetheris_pending_v1', state.pendingQueue);
+
+      // Clear inputs
+      document.getElementById('newStoryTitle').value = '';
+      document.getElementById('newStorySynopsis').value = '';
+      document.getElementById('newStoryChapTitle').value = '';
+      document.getElementById('newStoryChapContent').value = '';
+      state.customCoverBase64 = null;
+
+      playFantasySound('chime');
+      updateHeaderUI();
+      renderMySubmittedStories();
+      showToast('🚀 Đã gửi tác phẩm vào hàng đợi Kiểm Duyệt! Hãy sang mục "Kiểm Duyệt (Admin)" để duyệt xuất bản lên trang chủ.', 'success');
+    }
+
+    function renderMySubmittedStories() {
+      const box = document.getElementById('mySubmittedStoriesList');
+      if (!box) return;
+      const pendingItems = state.pendingQueue.slice(0, 4);
+      const approvedItems = state.stories.slice(0, 3);
+
+      let html = '';
+      pendingItems.forEach(p => {
+        html += `
+          <div class="p-2.5 rounded-xl bg-abyss border border-amber-400/30 flex items-center justify-between gap-2">
+            <div class="min-w-0">
+              <div class="font-bold text-white truncate">${p.title}</div>
+              <div class="text-[10px] text-amber-300">⏳ Đang chờ Admin kiểm duyệt</div>
+            </div>
+            <button type="button" onclick="switchTab('admin')" class="px-2 py-1 rounded bg-amber-400/20 text-amber-300 text-[10px] font-bold shrink-0">Duyệt ngay</button>
+          </div>`;
+      });
+      approvedItems.forEach(s => {
+        html += `
+          <div class="p-2.5 rounded-xl bg-abyss border border-emerald-400/20 flex items-center justify-between gap-2">
+            <div class="min-w-0">
+              <div class="font-bold text-white truncate">${s.title}</div>
+              <div class="text-[10px] text-emerald-400">✔ Đã xuất bản (${s.chapters.length} chương)</div>
+            </div>
+            <button type="button" onclick="openReader(${s.id}, 0)" class="px-2 py-1 rounded bg-obsidian text-gold-300 text-[10px] shrink-0">Xem</button>
+          </div>`;
+      });
+      box.innerHTML = html;
+    }
+
+    function populateExistingStorySelect() {
+      const sel = document.getElementById('existingStorySelect');
+      if (!sel) return;
+      sel.innerHTML = state.stories.map(s => `<option value="${s.id}">${s.title} (${s.chapters.length} chương)</option>`).join('');
+    }
+
+    function submitNewChapterToExisting() {
+      const storyId = parseInt(document.getElementById('existingStorySelect')?.value, 10);
+      const title = (document.getElementById('existingChapTitle')?.value || '').trim();
+      const content = (document.getElementById('existingChapContent')?.value || '').trim();
+      if (!title || !content) {
+        showToast('Vui lòng nhập tiêu đề và nội dung chương mới!', 'warning');
+        return;
+      }
+      const story = state.stories.find(s => s.id === storyId);
+      if (!story) return;
+
+      story.chapters.push({
+        title,
+        wordCount: content.split(/\s+/).length,
+        paragraphs: content.split(/\n+/).map(p => p.trim()).filter(Boolean)
+      });
+      saveStateToStorage('aetheris_stories_v1', state.stories);
+      document.getElementById('existingChapTitle').value = '';
+      document.getElementById('existingChapContent').value = '';
+      playFantasySound('approve');
+      showToast(`📖 Đã đăng tải "${title}" vào bộ truyện "${story.title}" thành công!`, 'success');
+      openReader(story.id, story.chapters.length - 1);
+    }
+
+    // --- Admin Moderation Dashboard ---
+    function renderAdminDashboard() {
+      const isAdmin = state.user.role === 'admin';
+      const statusBadge = document.getElementById('adminAccessStatusBadge');
+      const quickBox = document.getElementById('adminQuickActivateBox');
+      if (statusBadge) {
+        if (isAdmin) {
+          statusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30';
+          statusBadge.textContent = '✔ Quyền Admin Tối Cao Đang Bật';
+          if (quickBox) quickBox.classList.add('hidden');
+        } else {
+          statusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-400/30';
+          statusBadge.textContent = `Đang xem với vai trò: ${state.user.role.toUpperCase()} (Nhấn nút bên phải để kích hoạt quyền Admin)`;
+          if (quickBox) quickBox.classList.remove('hidden');
+        }
+      }
+
+      document.getElementById('adminStatPending').textContent = state.pendingQueue.length;
+      document.getElementById('adminStatApproved').textContent = state.stories.length;
+      const reportedComments = state.comments.filter(c => c.reported);
+      document.getElementById('adminStatReports').textContent = reportedComments.length;
+
+      // Render Pending Submissions
+      const pendingContainer = document.getElementById('adminPendingQueueList');
+      if (state.pendingQueue.length === 0) {
+        pendingContainer.innerHTML = `
+          <div class="glass-card rounded-2xl p-8 text-center space-y-2">
+            <div class="text-3xl">✨</div>
+            <p class="text-sm font-bold text-emerald-300">Tuyệt vời! Toàn bộ tác phẩm trong hàng đợi đều đã được kiểm duyệt.</p>
+            <p class="text-xs text-slate-400">Bạn có thể sang mục "Xưởng Sáng Tác" để đăng thử một bộ truyện mới và quay lại đây duyệt.</p>
+          </div>`;
+      } else {
+        pendingContainer.innerHTML = state.pendingQueue.map(item => `
+          <div class="glass-card rounded-2xl p-5 border border-amber-400/35 flex flex-col sm:flex-row gap-4 justify-between">
+            <div class="flex gap-4">
+              <div class="w-20 h-28 rounded-xl overflow-hidden border border-gold-400/40 shrink-0">
+                ${getCoverSvgArt(item.coverPreset, item.title, item.customCover)}
+              </div>
+              <div class="space-y-1.5">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">⏳ Chờ Kiểm Duyệt</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-arcane-500/20 text-arcane-300">${item.format === 'comic' ? '🎨 Truyện Tranh Hoạ Sĩ' : '📖 Tiểu Thuyết'}</span>
+                  <span class="text-[11px] text-slate-400">${item.submittedAt}</span>
+                </div>
+                <h4 class="font-fantasy font-bold text-base text-white">${item.title}</h4>
+                <p class="text-xs text-slate-300">Tác giả/Hoạ sĩ: <strong class="text-gold-300">${item.author}</strong> (${item.authorEmail})</p>
+                <p class="text-xs text-slate-400 line-clamp-2">${item.synopsis}</p>
+                <div class="text-[11px] text-emerald-400">🛡️ Quét tự động AI Safety: Không phát hiện vi phạm bản quyền hoặc từ ngữ cấm.</div>
+              </div>
+            </div>
+
+            <div class="flex sm:flex-col justify-end gap-2 shrink-0">
+              <button type="button" onclick="openAdminPreviewModal(${item.id})" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-obsidian hover:bg-sanctum text-slate-200 border border-slate-700">
+                👁️ Xem Bản Thảo
+              </button>
+              <button type="button" onclick="approvePendingStory(${item.id})" class="btn-gold px-4 py-2 rounded-xl text-xs font-bold">
+                ✅ Duyệt Xuất Bản
+              </button>
+              <button type="button" onclick="rejectPendingStory(${item.id})" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-rose-500/20 text-rose-300 border border-rose-400/40 hover:bg-rose-500/30">
+                ❌ Từ Chối
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Reported Comments
+      const repContainer = document.getElementById('adminReportedCommentsList');
+      if (reportedComments.length === 0) {
+        repContainer.innerHTML = `<div class="p-4 rounded-xl bg-abyss text-slate-400 text-center">Không có bình luận vi phạm nào tồn đọng.</div>`;
+      } else {
+        repContainer.innerHTML = reportedComments.map(c => `
+          <div class="p-3.5 rounded-xl bg-abyss border border-rose-400/30 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-white">${c.user}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">${c.reportReason || 'Bị báo cáo'}</span>
+            </div>
+            <p class="text-slate-300 italic">"${c.text}"</p>
+            <div class="flex items-center justify-end gap-2 pt-1">
+              <button type="button" onclick="adminRestoreComment(${c.id})" class="px-2.5 py-1 rounded bg-obsidian border border-slate-700 text-slate-300 hover:border-emerald-400">Giữ lại</button>
+              <button type="button" onclick="adminDeleteComment(${c.id})" class="px-2.5 py-1 rounded bg-rose-500/25 text-rose-300 border border-rose-400/40 font-semibold">🗑️ Xoá Vĩnh Viễn</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Published Stories Management
+      const pubContainer = document.getElementById('adminPublishedManageList');
+      pubContainer.innerHTML = state.stories.map(s => `
+        <div class="p-3 rounded-xl bg-abyss border border-slate-800 flex items-center justify-between gap-2">
+          <div class="min-w-0">
+            <div class="font-bold text-white truncate flex items-center gap-1">
+              ${s.featured ? '<span title="Đang ghim trên Banner chính">👑</span>' : ''}
+              <span>${s.title}</span>
+            </div>
+            <div class="text-[10px] text-slate-400">${s.author} • ${s.votes} phiếu</div>
+          </div>
+          <button type="button" onclick="adminSetFeaturedBanner(${s.id})" class="px-2.5 py-1 rounded-lg text-[10px] font-bold ${s.featured ? 'bg-gold-400 text-abyss' : 'bg-obsidian text-gold-300 border border-gold-400/30 hover:bg-gold-400/20'} shrink-0">
+            ${s.featured ? 'Đang Ghim Banner' : 'Ghim Lên Banner'}
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function openAdminPreviewModal(subId) {
+      const item = state.pendingQueue.find(p => p.id === subId);
+      if (!item) return;
+      document.getElementById('adminPreviewTitle').textContent = item.title;
+      document.getElementById('adminPreviewMeta').textContent =
+        `Tác giả: ${item.author} (${item.authorEmail}) • Thể loại: ${item.genre} • Định dạng: ${item.format === 'comic' ? 'Truyện tranh Webtoon' : 'Tiểu thuyết chữ'}`;
+
+      const chap = item.chapters[0];
+      let html = `<div class="text-xs text-gold-300 font-bold uppercase mb-2">${chap.title}</div>`;
+      if (chap.panels && chap.panels.length > 0) {
+        html += chap.panels.map(p => renderComicPanelArtwork(p)).join('');
+      }
+      html += (chap.paragraphs || []).map(p => `<p class="mb-3 text-slate-200">${p}</p>`).join('');
+
+      document.getElementById('adminPreviewContentBox').innerHTML = html;
+      document.getElementById('adminModalApproveBtn').setAttribute('onclick', `approvePendingStory(${item.id}); closeAdminPreviewModal();`);
+      document.getElementById('adminModalRejectBtn').setAttribute('onclick', `rejectPendingStory(${item.id}); closeAdminPreviewModal();`);
+      document.getElementById('adminPreviewModal').classList.remove('hidden');
+    }
+
+    function closeAdminPreviewModal() {
+      document.getElementById('adminPreviewModal').classList.add('hidden');
+    }
+
+    function approvePendingStory(subId) {
+      const idx = state.pendingQueue.findIndex(p => p.id === subId);
+      if (idx < 0) return;
+      const item = state.pendingQueue.splice(idx, 1)[0];
+      item.status = 'approved';
+      item.featured = false;
+      item.votes = item.votes || 320;
+      item.views = item.views || 1500;
+      item.reactions = item.reactions || { fire: 45, heart: 60, tear: 10, shock: 22, brain: 30, sword: 40 };
+
+      state.stories.unshift(item);
+      saveStateToStorage('aetheris_stories_v1', state.stories);
+      saveStateToStorage('aetheris_pending_v1', state.pendingQueue);
+
+      playFantasySound('approve');
+      pushActivity(`🛡️ <strong>Admin Pháp Đình</strong> vừa phê duyệt xuất bản tác phẩm <em>${item.title}</em> của <strong>${item.author}</strong>!`);
+      updateHeaderUI();
+      renderAdminDashboard();
+      renderStoryGrid();
+      showToast(`✅ Đã phê duyệt "${item.title}"! Tác phẩm hiện đã xuất hiện trên Trang Chủ & Bảng Xếp Hạng.`, 'success');
+    }
+
+    function rejectPendingStory(subId) {
+      const idx = state.pendingQueue.findIndex(p => p.id === subId);
+      if (idx < 0) return;
+      const reason = (document.getElementById('adminRejectReasonInput')?.value || 'Cần bổ sung độ dài chương mở đầu và chỉnh sửa chính tả').trim();
+      const removed = state.pendingQueue.splice(idx, 1)[0];
+      saveStateToStorage('aetheris_pending_v1', state.pendingQueue);
+      updateHeaderUI();
+      renderAdminDashboard();
+      showToast(`❌ Đã từ chối bản thảo "${removed.title}". Lý do gửi tới Gmail tác giả: "${reason}"`, 'warning');
+    }
+
+    function adminDeleteComment(commentId) {
+      const idx = state.comments.findIndex(c => c.id === commentId);
+      if (idx >= 0) {
+        state.comments.splice(idx, 1);
+        saveStateToStorage('aetheris_comments_v1', state.comments);
+        renderAdminDashboard();
+        showToast('🗑️ Đã xoá bình luận vi phạm khỏi hệ thống.', 'info');
+      }
+    }
+
+    function adminRestoreComment(commentId) {
+      const c = state.comments.find(item => item.id === commentId);
+      if (c) {
+        c.reported = false;
+        saveStateToStorage('aetheris_comments_v1', state.comments);
+        renderAdminDashboard();
+        showToast('✔ Đã khôi phục bình luận hợp lệ.', 'success');
+      }
+    }
+
+    function adminSetFeaturedBanner(storyId) {
+      state.stories.forEach(s => { s.featured = (s.id === storyId); });
+      saveStateToStorage('aetheris_stories_v1', state.stories);
+      renderHero();
+      renderAdminDashboard();
+      const target = state.stories.find(s => s.id === storyId);
+      showToast(`👑 Đã ghim "${target?.title}" lên Banner Tuyệt Tác Đầu Trang!`, 'success');
+    }
+
+    // --- Gmail Authentication & 6-Digit OTP Modal ---
+    function openAuthModal() {
+      document.getElementById('authModal').classList.remove('hidden');
+    }
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.add('hidden');
+    }
+
+    function quickLoginGoogle(name, email, role) {
+      state.user.name = name;
+      state.user.email = email;
+      state.user.role = role;
+      state.user.gmailVerified = true;
+      playFantasySound('chime');
+      closeAuthModal();
+      updateHeaderUI();
+      if (role === 'admin') renderAdminDashboard();
+      showToast(`✔ Đã đăng nhập xác thực Google OAuth thành công: ${email}`, 'success');
+    }
+
+    function sendSimulatedGmailOtp() {
+      const emailInput = (document.getElementById('customGmailInput')?.value || '').trim();
+      if (!emailInput || !emailInput.includes('@')) {
+        showToast('Vui lòng nhập địa chỉ email hợp lệ (ví dụ: tenban@gmail.com)!', 'warning');
+        return;
+      }
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      state.pendingOtpCode = otp;
+      document.getElementById('generatedOtpCodeText').textContent = otp;
+      document.getElementById('otpVerificationStepBox').classList.remove('hidden');
+      playFantasySound('chime');
+      showToast(`📩 Đã gửi mã OTP 6 số (${otp}) tới hộp thư ${emailInput}!`, 'info');
+    }
+
+    function autofillOtpCode() {
+      if (state.pendingOtpCode) {
+        document.getElementById('otpInputCode').value = state.pendingOtpCode;
+      }
+    }
+
+    function verifyGmailOtpAndLogin() {
+      const entered = (document.getElementById('otpInputCode')?.value || '').trim();
+      if (!state.pendingOtpCode || entered !== state.pendingOtpCode) {
+        showToast('Mã OTP chưa chính xác! Bạn có thể bấm "Tự điền mã" để nhập nhanh mã từ hộp thư.', 'error');
+        return;
+      }
+      const customName = (document.getElementById('customAuthName')?.value || '').trim() || 'Thánh Sư Tinh Vân';
+      const customEmail = (document.getElementById('customGmailInput')?.value || '').trim();
+      const customRole = document.getElementById('customAuthRole')?.value || 'reader';
+
+      state.user.name = customName;
+      state.user.email = customEmail;
+      state.user.role = customRole;
+      state.user.gmailVerified = true;
+      state.user.crystals += 200;
+      state.user.tickets += 3;
+
+      document.getElementById('otpVerificationStepBox').classList.add('hidden');
+      closeAuthModal();
+      playFantasySound('approve');
+      updateHeaderUI();
+      showToast(`🎉 Xác thực Gmail (${customEmail}) thành công! Tặng bạn +200 Linh Thạch & +3 Nguyệt Phiếu!`, 'success');
+    }
+
+    // --- Animated Starfield Canvas Background ---
+    function initStarfieldCanvas() {
+      const canvas = document.getElementById('starfieldCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      const stars = Array.from({ length: 65 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.8 + 0.4,
+        alpha: Math.random() * 0.7 + 0.2,
+        speedY: -(Math.random() * 0.22 + 0.05),
+        gold: Math.random() > 0.45
+      }));
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        for (const s of stars) {
+          s.y += s.speedY;
+          if (s.y < 0) {
+            s.y = height;
+            s.x = Math.random() * width;
+          }
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = s.gold
+            ? `rgba(245, 196, 81, ${s.alpha})`
+            : `rgba(192, 132, 252, ${s.alpha})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // --- Initialize App on Load ---
+    window.addEventListener('DOMContentLoaded', () => {
+      initStarfieldCanvas();
+      updateHeaderUI();
+      renderHero();
+      renderStoryGrid();
+      renderMiniLeaderboard();
+      renderActivityFeed();
+      renderCheckinAltar();
+      renderDailyQuests();
+    });
+  </script>
+</body>
+</html>
